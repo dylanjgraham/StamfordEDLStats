@@ -12,6 +12,7 @@ ToDo
   fix buggy sorting visual that looks like it should be an arrow but is instead a box
   Add schedule screen
   highlight highest out per division with a tooltip that explains the highlight
+  mobile compatible (make whole left pane collapsible)
 
   nice to haves
     store everyones weekly scores and show progress as a graph
