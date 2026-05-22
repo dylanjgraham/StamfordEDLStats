@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stamford EDL</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ag-grid/31.3.2/ag-grid-community.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a08;
+      --surface: #111110;
+      --surface2: #191917;
+      --border: #2a2a26;
+      --accent: #e8c84a;
+      --accent-dim: rgba(232,200,74,0.15);
+      --red: #e84a4a;
+      --green: #4ae87a;
+      --text: #f0ede0;
+      --muted: #6b6858;
+      --muted2: #4a4840;
+    }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .topbar {
+      background: var(--surface);
+      border-bottom: 2px solid var(--accent);
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 40px rgba(232,200,74,0.06);
+    }
+
+    .topbar-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32.2px;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      white-space: nowrap;
+      text-shadow: 0 0 20px rgba(232,200,74,0.3);
+    }
+
+    .topbar-logo span { color: var(--text); }
+    .topbar-divider { width: 1px; height: 32px; background: var(--border); }
+
+    .season-badge {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12.6px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+    }
+
+    #loadStatus {
+      margin-left: auto;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13.8px;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .layout {
+      display: flex;
+      height: calc(100vh - 64px);
+    }
+
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px 0;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); }
+
+    .sidebar-section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      padding: 16px 20px 8px;
+    }
+
+    .sidebar-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 9px 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+      border-left: 2px solid transparent;
+    }
+
+    .sidebar-btn:hover { background: var(--surface2); }
+    .sidebar-btn.active { background: var(--accent-dim); border-left-color: var(--accent); }
+
+    .sidebar-btn-icon { font-size: 16.1px; margin-top: 1px; flex-shrink: 0; }
+
+    .sidebar-btn-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14.9px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .sidebar-btn.active .sidebar-btn-text { color: var(--accent); }
+
+    .sidebar-btn-sub {
+      font-size: 12.6px;
+      font-weight: 400;
+      color: var(--muted);
+      display: block;
+    }
+
+    .sidebar-btn.active .sidebar-btn-sub { color: rgba(232,200,74,0.6); }
+
+    .division-wrapper {
+      border-top: 1px solid var(--border);
+    }
+
+    .division-header {
+      width: 100%;
+      background: var(--surface);
+      border: none;
+      color: var(--accent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16.1px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .division-header:hover {
+      background: var(--surface2);
+    }
+
+    .division-content {
+      padding-bottom: 8px;
+    }
+
+    .division-arrow {
+      font-size: 13.8px;
+      color: var(--muted);
+    }
+
+
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .main-header {
+      padding: 20px 28px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .main-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 25.3px;
+      letter-spacing: 0.05em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .main-subtitle {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13.8px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .header-controls { display: flex; align-items: center; gap: 10px; }
+
+    .search-input {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14.9px;
+      padding: 7px 14px;
+      outline: none;
+      width: 220px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--accent); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .row-count {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13.8px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .row-count strong { color: var(--accent); }
+
+    .grid-wrapper { flex: 1; overflow: hidden; }
+    #myGrid { width: 100%; height: 100%; }
+
+    /* Loading / error overlay */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      z-index: 50;
+      gap: 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    .overlay-icon { font-size: 55.2px; }
+    .overlay-title { font-family: 'Bebas Neue', sans-serif; font-size: 32.2px; color: var(--accent); letter-spacing: 0.08em; }
+    .overlay-sub { font-size: 16.1px; color: var(--muted); letter-spacing: 0.05em; }
+    .overlay-error { color: var(--red); font-size: 14.9px; max-width: 400px; text-align: center; }
+
+    .retry-btn {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14.9px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 20px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .retry-btn:hover { background: rgba(232,200,74,0.25); }
+
+    /* AG Grid theme */
+    .ag-theme-darts {
+      --ag-background-color: var(--bg);
+      --ag-foreground-color: var(--text);
+      --ag-border-color: var(--border);
+      --ag-header-background-color: #0f0f0d;
+      --ag-header-foreground-color: var(--accent);
+      --ag-odd-row-background-color: var(--surface);
+      --ag-row-hover-color: var(--surface2);
+      --ag-selected-row-background-color: var(--accent-dim);
+      --ag-font-family: 'Barlow Condensed', sans-serif;
+      --ag-font-size: 14.9px;
+      --ag-cell-horizontal-padding: 14px;
+      --ag-row-height: 46px;
+      --ag-header-height: 48px;
+      --ag-range-selection-border-color: var(--accent);
+    }
+
+    .ag-theme-darts .ag-header-cell-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .ag-theme-darts .ag-cell { line-height: 40px; }
+
+    /* Cell renderers */
+    .bar-cell { display: flex; align-items: center; gap: 8px; height: 40px; }
+    .bar-wrap { flex: 1; background: var(--border); height: 3px; }
+    .bar-fill { height: 3px; border-radius: 2px; }
+    .ppd-cell { color: var(--accent); font-weight: 600; }
+    .mpr-cell { color: #7ad4e8; font-weight: 600; }
+    .improvement-cell { color: var(--green); font-weight: 600; }
+    .div-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12.6px;
+      letter-spacing: 0.1em;
+      padding: 2px 7px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(232,200,74,0.2);
+    }
+    .rank-cell { font-family: 'Bebas Neue', sans-serif; font-size: 18.4px; color: var(--muted); }
+    .rank-cell.top { color: var(--accent); }
+
+    /* Most-improved row highlight */
+    .ag-theme-darts .ag-row.row-most-improved {
+      background-color: rgba(74, 232, 122, 0.07) !important;
+      border-left: 3px solid var(--green) !important;
+    }
+    .ag-theme-darts .ag-row.row-most-improved:hover {
+      background-color: rgba(74, 232, 122, 0.13) !important;
+    }
+
+    /* Improvement tooltip */
+    .improvement-tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: #1a2e1f;
+      border: 1px solid var(--green);
+      color: var(--text);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14.9px;
+      padding: 8px 14px;
+      z-index: 9999;
+      display: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .improvement-tooltip .tip-title {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 16.1px;
+      letter-spacing: 0.05em;
+    }
+
+    .improvement-tooltip .tip-row {
+      color: var(--muted);
+      font-size: 12.6px;
+      margin-top: 3px;
+    }
+
+    .improvement-tooltip .tip-row span { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<div id="improvementTooltip" class="improvement-tooltip"></div>
+
+<div class="topbar">
+  <div class="topbar-logo">🎯 STAMFORD DARTS<span> LEAGUE</span></div>
+  <div class="topbar-divider"></div>
+  <!--div class="season-badge" id="seasonBadge">Loading...</div-->
+  <div id="loadStatus"><span class="spinner"></span> Fetching latest data...</div>
+</div>
+
+<div class="layout">
+  <div class="sidebar" id="sidebar"></div>
+  <div class="main" style="position:relative">
+    <div id="overlay" class="overlay">
+      <div class="overlay-icon">🎯</div>
+      <div class="overlay-title">Stamford Darts League 2.0</div>
+      <div class="overlay-sub" id="overlayMsg">Fetching latest stats...</div>
+    </div>
+
+    <div class="main-header">
+      <div>
+        <div class="main-title" id="mainTitle">Select a section</div>
+        <div class="main-subtitle" id="mainSubtitle">Use the sidebar to navigate</div>
+      </div>
+      <div class="header-controls">
+        <input class="search-input" type="text" id="searchInput" placeholder="Search..." />
+        <div class="row-count">Rows: <strong id="rowCount">0</strong></div>
+      </div>
+    </div>
+    <div class="grid-wrapper">
+      <div class="ag-theme-darts" id="myGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// AG GRID INIT
+// ============================================================
+let gridApi = null;
+let SECTIONS = {};
+
+const defaultColDef = {
+  sortable: true,
+  resizable: true,
+  filter: 'agTextColumnFilter',
+  filterParams: { buttons: ['reset'] },
+};
+
+const tooltip = document.getElementById('improvementTooltip');
+
+// Show tooltip on mousemove over grid rows
+document.getElementById('myGrid').addEventListener('mousemove', e => {
+  const row = e.target.closest('.ag-row');
+  if (!row) { tooltip.style.display = 'none'; return; }
+  const rowIndex = row.getAttribute('row-index');
+  if (rowIndex === null) { tooltip.style.display = 'none'; return; }
+  let rowData = null;
+  gridApi.forEachNode(node => { if (String(node.rowIndex) === String(rowIndex)) rowData = node.data; });
+  if (!rowData || !rowData.mostImproved) { tooltip.style.display = 'none'; return; }
+
+  // Build tooltip content
+  let html = '';
+  if (rowData.improvement != null && rowData.prevPPD != null) {
+    html = `<div class="tip-title">▲ Most Improved · X01</div>
+      <div class="tip-row">Previous PPD: <span>${rowData.prevPPD.toFixed(2)}</span></div>
+      <div class="tip-row">Current PPD:  <span>${rowData.ppd?.toFixed(2)}</span></div>
+      <div class="tip-row">Improvement:  <span style="color:var(--green)">+${rowData.improvement.toFixed(2)}</span></div>`;
+  } else if (rowData.improvement != null && rowData.prevMPR != null) {
+    html = `<div class="tip-title">▲ Most Improved · Cricket</div>
+      <div class="tip-row">Previous MPR: <span>${rowData.prevMPR.toFixed(2)}</span></div>
+      <div class="tip-row">Current MPR:  <span>${rowData.mpr?.toFixed(2)}</span></div>
+      <div class="tip-row">Improvement:  <span style="color:var(--green)">+${rowData.improvement.toFixed(2)}</span></div>`;
+  }
+  if (!html) { tooltip.style.display = 'none'; return; }
+
+  tooltip.innerHTML = html;
+  tooltip.style.display = 'block';
+  const tx = Math.min(e.clientX + 16, window.innerWidth - tooltip.offsetWidth - 8);
+  const ty = Math.min(e.clientY + 16, window.innerHeight - tooltip.offsetHeight - 8);
+  tooltip.style.left = tx + 'px';
+  tooltip.style.top  = ty + 'px';
+});
+
+document.getElementById('myGrid').addEventListener('mouseleave', () => {
+  tooltip.style.display = 'none';
+});
+
+gridApi = agGrid.createGrid(document.getElementById('myGrid'), {
+  columnDefs: [],
+  rowData: [],
+  defaultColDef,
+  animateRows: true,
+  rowSelection: 'single',
+  onFilterChanged: updateRowCount,
+  getRowClass: params => params.data?.mostImproved ? 'row-most-improved' : '',
+});
+
+// ============================================================
+// FETCH & PARSE
+// ============================================================
+async function loadData() {
+  setOverlay('Fetching latest stats...');
+
+  const URLS = [
+    'https://api.amusementsunlimited.net/api/pages/get_page/?page_type=division_a_stats',
+    'https://api.amusementsunlimited.net/api/pages/get_page/?page_type=division_bc_stats',
+  ];
+
+  let htmlBlocks = [];
+  try {
+    const responses = await Promise.all(URLS.map(u => fetch(u)));
+    for (const res of responses) {
+      if (!res.ok) throw new Error(`HTTP ${res.status} from ${res.url}`);
+      const json = await res.json();
+      const html = json[0].content || Object.values(json).find(v => typeof v === 'string' && v.includes('<table'));
+      if (!html) throw new Error('Could not locate HTML in response from ' + res.url);
+      htmlBlocks.push(html);
+    }
+  } catch (e) {
+    showError('Failed to fetch data: ' + e.message);
+    return;
+  }
+
+  try {
+    // Parse each block then merge — later blocks' divisions are appended after earlier ones
+    SECTIONS = {};
+    for (const html of htmlBlocks) {
+      const partial = parseAllSections(html);
+
+      Object.keys(partial).forEach(k => {
+        SECTIONS[k] = partial[k];
+      });
+    }
+    buildSidebar();
+    const firstKey = Object.keys(SECTIONS)[0];
+    if (firstKey) loadSection(firstKey);
+    hideOverlay();
+    document.getElementById('loadStatus').textContent = '✓ Live data loaded';
+    document.getElementById('loadStatus').style.color = 'var(--green)';
+  } catch (e) {
+    showError('Failed to parse data: ' + e.message);
+    console.error(e);
+  }
+}
+
+// ============================================================
+// HTML PARSER
+// ============================================================
+function parseAllSections(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+
+  // First pass: collect all raw tables keyed by type
+  const raw = { x01Improved: {}, cricketImproved: {}, x01Stats: {}, cricketStats: {} };
+  const orderedSections = {}; // final output, insertion-ordered
+
+  const allTables = Array.from(doc.querySelectorAll('table'));
+
+  for (let i = 0; i < allTables.length; i++) {
+    const table = allTables[i];
+    const headers = Array.from(table.querySelectorAll('thead th')).map(th => th.textContent.trim());
+    const sectionName = getSectionName(table, doc);
+    console.log(`Table ${i}: h3="${sectionName}" headers=[${headers.join(', ')}]`);
+
+    if (headers.includes('Weeks') && headers.includes('Wins') && headers.includes('Losses')) {
+      const standingsData = parseStandings(table);
+      const grouped = {};
+
+      standingsData.forEach(row => {
+        if (!grouped[row.division]) grouped[row.division] = [];
+        grouped[row.division].push(row);
+      });
+
+      Object.keys(grouped).forEach(div => {
+        orderedSections[`standings_${div.toLowerCase()}`] = {
+          label: 'Standings',
+          icon: '🏆',
+          sub: `Division ${div}`,
+          division: div,
+          columns: null,
+          data: grouped[div]
+        };
+      });
+
+    } else if (headers.includes('Against') && headers.includes('Forfeits')) {
+      orderedSections['last_matches'] = { label: 'Last Match Results', icon: '📋', sub: 'Most recent results', columns: null, data: parseMatchResults(table) };
+
+    } else if (headers.includes('PPD Improvement')) {
+      const divMatch = sectionName.match(/Division\s+(\w+)/i);
+      const div = divMatch ? divMatch[1] : 'Unknown';
+      const weekMatch = sectionName.match(/week\s+(\d+)/i);
+      const week = weekMatch ? weekMatch[1] : '?';
+      raw.x01Improved[div] = { week, data: parseImprovedX01(table) };
+
+    } else if (headers.includes('MPR Improvement')) {
+      const divMatch = sectionName.match(/Division\s+(\w+)/i);
+      const div = divMatch ? divMatch[1] : 'Unknown';
+      const weekMatch = sectionName.match(/week\s+(\d+)/i);
+      const week = weekMatch ? weekMatch[1] : '?';
+      raw.cricketImproved[div] = { week, data: parseImprovedCricket(table) };
+
+    } else if (headers.includes('PPD') && headers.includes('HiOut') && headers.includes('Ton80')) {
+      const divMatch = sectionName.match(/Division\s+(\w+)/i);
+      const div = divMatch ? divMatch[1] : 'Unknown';
+      raw.x01Stats[div] = parseX01Stats(table);
+
+    } else if (headers.includes('MPR') && headers.includes('9MR')) {
+      const divMatch = sectionName.match(/Division\s+(\w+)/i);
+      const div = divMatch ? divMatch[1] : 'Unknown';
+      raw.cricketStats[div] = parseCricketStats(table);
+    }
+  }
+
+  // Second pass: merge improved data into stats rows, then add to final sections
+  const allDivs = new Set([
+    ...Object.keys(raw.x01Stats),
+    ...Object.keys(raw.cricketStats),
+  ]);
+
+  // Sort divisions: B1, B2, B3, C1 etc.
+  const allX01Rows = [];
+  const allCricketRows = [];
+  const sortedDivs = [...allDivs].sort();
+
+  sortedDivs.forEach(div => {
+    // ---- X01 stats + improved merged ----
+    if (raw.x01Stats[div]) {
+      const improvedMap = {};
+      if (raw.x01Improved[div]) {
+        raw.x01Improved[div].data.forEach(r => {
+          improvedMap[r.player.toLowerCase()] = r;
+        });
+      }
+      const week = raw.x01Improved[div]?.week ?? '?';
+      const mergedX01 = raw.x01Stats[div].map(r => {
+        const imp = improvedMap[r.player.toLowerCase()];
+        return imp
+          ? { ...r, mostImproved: true, improvement: imp.improvement, prevPPD: imp.prevPPD }
+          : { ...r, mostImproved: false };
+      });
+      allX01Rows.push(...mergedX01);
+
+      orderedSections[`${div.toLowerCase()}_x01_stats`] = {
+        label: 'Player Stats · X01',
+        icon: '🎯',
+        sub: `Div ${div} · % Wins`,
+        division: div,
+        improvedWeek: week,
+        columns: null,
+        data: mergedX01,
+      };
+    }
+
+    // ---- Cricket stats + improved merged ----
+    if (raw.cricketStats[div]) {
+      const improvedMap = {};
+      if (raw.cricketImproved[div]) {
+        raw.cricketImproved[div].data.forEach(r => {
+          improvedMap[r.player.toLowerCase()] = r;
+        });
+      }
+      const week = raw.cricketImproved[div]?.week ?? '?';
+      const mergedCricket = raw.cricketStats[div].map(r => {
+        const imp = improvedMap[r.player.toLowerCase()];
+        return imp
+          ? { ...r, mostImproved: true, improvement: imp.improvement, prevMPR: imp.prevMPR }
+          : { ...r, mostImproved: false };
+      });
+      allCricketRows.push(...mergedCricket);
+
+      orderedSections[`${div.toLowerCase()}_cricket_stats`] = {
+        label: 'Player Stats · Cricket',
+        icon: '🏏',
+        sub: `Div ${div} · % Wins`,
+        division: div,
+        improvedWeek: week,
+        columns: null,
+        data: mergedCricket,
+      };
+    }
+  });
+
+  allX01Rows.sort((a, b) => (b.ppd || 0) - (a.ppd || 0));
+
+  orderedSections['all_x01'] = {
+    label: 'All X01 Stats',
+    icon: '🎯',
+    sub: 'League-wide comparison',
+    columns: null,
+    data: allX01Rows
+  };
+
+  allCricketRows.sort((a, b) => (b.mpr || 0) - (a.mpr || 0));
+
+  orderedSections['all_cricket'] = {
+    label: 'All Cricket Stats',
+    icon: '🏏',
+    sub: 'League-wide comparison',
+    columns: null,
+    data: allCricketRows
+  };
+
+  return orderedSections;
+}
+
+// Get H3 text preceding a table.
+// The table may be nested inside wrapper divs, so we walk up the ancestor
+// chain and at each level scan all preceding siblings for an H3.
+function getSectionName(table, doc) {
+  let node = table;
+  while (node) {
+    // Scan preceding siblings of the current node
+    let prev = node.previousElementSibling;
+    while (prev) {
+      if (prev.tagName === 'H3') return prev.textContent.trim();
+      // Also check the last H3 *inside* a sibling (unlikely but safe)
+      const inner = prev.querySelector('h3');
+      if (inner) return inner.textContent.trim();
+      prev = prev.previousElementSibling;
+    }
+    // Move up one level
+    node = node.parentElement;
+    // Stop at body
+    if (!node || node.tagName === 'BODY') break;
+  }
+  return '';
+}
+
+function getRows(table) {
+  return Array.from(table.querySelectorAll('tbody tr'));
+}
+
+function getCells(row) {
+  return Array.from(row.querySelectorAll('td')).map(td => td.textContent.trim());
+}
+
+function n(v) { return v === '' || v === undefined ? null : parseFloat(v); }
+
+// --- Standings ---
+function parseStandings(table) {
+  const rows = getRows(table);
+  const data = [];
+  let currentDiv = '';
+  let rank = 0;
+  rows.forEach(row => {
+    const cells = getCells(row);
+    if (cells.length === 1) {
+      // Division header row like "Division: B1"
+      currentDiv = cells[0].replace('Division:', '').trim();
+      rank = 0;
+    } else if (cells.length >= 4) {
+      rank++;
+      const wins = n(cells[2]);
+      const losses = n(cells[3]);
+      data.push({
+        rank,
+        division: currentDiv,
+        team: cells[0],
+        weeks: n(cells[1]),
+        wins,
+        losses,
+        winPct: wins != null && losses != null ? wins / (wins + losses) : null,
+      });
+    }
+  });
+  return data;
+}
+
+// --- Match results ---
+function parseMatchResults(table) {
+  return getRows(table).map(row => {
+    const c = getCells(row);
+    return { team: c[0], against: c[1], date: c[2], week: n(c[3]), games: n(c[4]), wins: n(c[5]), losses: n(c[6]), forfeits: n(c[7]) };
+  }).filter(r => r.team);
+}
+
+// --- Most improved X01 ---
+function parseImprovedX01(table) {
+  return getRows(table).map(row => {
+    const c = getCells(row);
+    return { player: c[0], team: c[1], prevPPD: n(c[2]), ppd: n(c[3]), improvement: n(c[4]) };
+  }).filter(r => r.player);
+}
+
+// --- Most improved Cricket ---
+function parseImprovedCricket(table) {
+  return getRows(table).map(row => {
+    const c = getCells(row);
+    return { player: c[0], team: c[1], prevMPR: n(c[2]), mpr: n(c[3]), improvement: n(c[4]) };
+  }).filter(r => r.player);
+}
+
+// --- X01 player stats ---
+function parseX01Stats(table) {
+  return getRows(table).map(row => {
+    const c = getCells(row);
+    const wins = n(c[5]);
+    const games = n(c[4]);
+    return {
+      player: c[0], team: c[1], div: c[2],
+      ppd: n(c[3]), games, wins,
+      winPct: games ? wins / games : null,
+      hats: n(c[6]), ton80: n(c[7]), hiTon: n(c[8]), loTon: n(c[9]), hiOut: n(c[10]),
+    };
+  }).filter(r => r.player);
+}
+
+// --- Cricket player stats ---
+function parseCricketStats(table) {
+  return getRows(table).map(row => {
+    const c = getCells(row);
+    const wins = n(c[5]);
+    const games = n(c[4]);
+    return {
+      player: c[0], team: c[1], div: c[2],
+      mpr: n(c[3]), games, wins,
+      winPct: games ? wins / games : null,
+      assists: n(c[6]), hats: n(c[7]), whorse: n(c[8]),
+      mr6: n(c[9]), mr7: n(c[10]), mr8: n(c[11]), mr9: n(c[12]),
+    };
+  }).filter(r => r.player);
+}
+
+// ============================================================
+// COLUMN DEFS (built dynamically based on section type)
+// ============================================================
+function getColumns(section) {
+  if (section.columns) return section.columns;
+
+  const key = Object.keys(SECTIONS).find(k => SECTIONS[k] === section);
+
+  if (key === 'standings') {
+    const maxW = Math.max(...section.data.map(r => r.wins || 0));
+    return [
+      { field: 'rank', headerName: '#', width: 52, cellRenderer: p => `<span class="rank-cell ${p.value <= 3 ? 'top' : ''}">${p.value}</span>` },
+      { field: 'division', headerName: 'Div', width: 70, cellRenderer: p => `<span class="div-badge">${p.value}</span>` },
+      { field: 'team', headerName: 'Team', flex: 2 },
+      { field: 'weeks', headerName: 'Wks', width: 70 },
+      { field: 'wins', headerName: 'W', flex: 1, cellRenderer: p => {
+        const pct = maxW ? (p.value/maxW)*100 : 0;
+        return `<div class="bar-cell"><span style="min-width:30px">${p.value}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`;
+      }},
+      { field: 'losses', headerName: 'L', width: 65 },
+      { field: 'winPct', headerName: 'W%', width: 80, valueFormatter: p => p.value != null ? (p.value*100).toFixed(1)+'%' : '' },
+    ];
+  }
+
+  if (key === 'last_matches') {
+    return [
+      { field: 'team', headerName: 'Team', flex: 1.5 },
+      { field: 'against', headerName: 'Against', flex: 1.5 },
+      { field: 'date', headerName: 'Date', width: 160 },
+      { field: 'week', headerName: 'Wk', width: 60 },
+      { field: 'games', headerName: 'Gms', width: 65 },
+      { field: 'wins', headerName: 'W', width: 60, cellRenderer: p => `<span style="color:var(--green);font-weight:600">${p.value}</span>` },
+      { field: 'losses', headerName: 'L', width: 60, cellRenderer: p => `<span style="color:var(--red)">${p.value}</span>` },
+      { field: 'forfeits', headerName: 'Forf', width: 65 },
+    ];
+  }
+
+  if (key && key.endsWith('_x01_improved')) {
+    return [
+      { field: 'player', headerName: 'Player', flex: 1.5 },
+      { field: 'team', headerName: 'Team', flex: 1.5 },
+      { field: 'prevPPD', headerName: 'Prev PPD', width: 110, valueFormatter: p => p.value?.toFixed(2) },
+      { field: 'ppd', headerName: 'PPD', width: 90, cellRenderer: p => `<span class="ppd-cell">${p.value?.toFixed(2)}</span>` },
+      { field: 'improvement', headerName: '▲ PPD', width: 110, sort: 'desc', cellRenderer: p => `<span class="improvement-cell">+${p.value?.toFixed(2)}</span>` },
+    ];
+  }
+
+  if (key && key.endsWith('_cricket_improved')) {
+    return [
+      { field: 'player', headerName: 'Player', flex: 1.5 },
+      { field: 'team', headerName: 'Team', flex: 1.5 },
+      { field: 'prevMPR', headerName: 'Prev MPR', width: 110, valueFormatter: p => p.value?.toFixed(2) },
+      { field: 'mpr', headerName: 'MPR', width: 90, cellRenderer: p => `<span class="mpr-cell">${p.value?.toFixed(2)}</span>` },
+      { field: 'improvement', headerName: '▲ MPR', width: 110, sort: 'desc', cellRenderer: p => `<span class="improvement-cell">+${p.value?.toFixed(2)}</span>` },
+    ];
+  }
+
+  if (key && key.endsWith('_x01_stats')) {
+    const maxPPD = Math.max(...section.data.map(r => r.ppd || 0), 1);
+    const week = section.improvedWeek ?? '?';
+    return [
+      { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
+        const d = p.data;
+        if (!d.mostImproved) return p.value;
+        return `<span style="display:flex;align-items:center;gap:6px;height:40px">
+          <span style="color:var(--green);font-size: 12.6px;line-height:1">▲</span>
+          <span>${p.value}</span>
+        </span>`;
+      }},
+      { field: 'team', headerName: 'Team', flex: 1.2 },
+      { field: 'ppd', headerName: 'PPD', width: 130, sort: key === 'all_x01' ? 'desc' : undefined, cellRenderer: p => {
+        const pct = (p.value/maxPPD)*100;
+        return `<div class="bar-cell"><span class="ppd-cell" style="min-width:40px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`;
+      }},
+      { field: 'games', headerName: 'Gms', width: 65 },
+      { field: 'wins', headerName: 'W', width: 60 },
+      { field: 'winPct', headerName: 'W%', width: 75, valueFormatter: p => p.value != null ? (p.value*100).toFixed(0)+'%' : '' },
+      { field: 'hats', headerName: 'Hats', width: 65 },
+      { field: 'ton80', headerName: '180s', width: 65 },
+      { field: 'hiTon', headerName: 'HiTon', width: 70 },
+      { field: 'loTon', headerName: 'LoTon', width: 70 },
+      { field: 'hiOut', headerName: 'HiOut', width: 75 },
+    ];
+  }
+
+  if (key && key.endsWith('_cricket_stats')) {
+    const maxMPR = Math.max(...section.data.map(r => r.mpr || 0), 1);
+    const week = section.improvedWeek ?? '?';
+    return [
+      { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
+        const d = p.data;
+        if (!d.mostImproved) return p.value;
+        return `<span style="display:flex;align-items:center;gap:6px;height:40px">
+          <span style="color:var(--green);font-size: 12.6px;line-height:1">▲</span>
+          <span>${p.value}</span>
+        </span>`;
+      }},
+      { field: 'team', headerName: 'Team', flex: 1.2 },
+      { field: 'mpr', headerName: 'MPR', width: 130, sort: key === 'all_cricket' ? 'desc' : undefined, cellRenderer: p => {
+        const pct = (p.value/maxMPR)*100;
+        return `<div class="bar-cell"><span class="mpr-cell" style="min-width:36px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:#7ad4e8"></div></div></div>`;
+      }},
+      { field: 'games', headerName: 'Gms', width: 65 },
+      { field: 'wins', headerName: 'W', width: 60 },
+      { field: 'winPct', headerName: 'W%', width: 75, valueFormatter: p => p.value != null ? (p.value*100).toFixed(0)+'%' : '' },
+      { field: 'assists', headerName: 'Ast', width: 65 },
+      { field: 'hats', headerName: 'Hats', width: 65 },
+      { field: 'mr6', headerName: '6MR', width: 60 },
+      { field: 'mr7', headerName: '7MR', width: 60 },
+      { field: 'mr8', headerName: '8MR', width: 60 },
+      { field: 'mr9', headerName: '9MR', width: 60 },
+    ];
+  }
+
+  // Fallback: auto-generate columns from data keys
+  if (section.data && section.data.length > 0) {
+    return Object.keys(section.data[0]).map(k => ({ field: k, headerName: k, flex: 1 }));
+  }
+
+  return [];
+}
+
+// ============================================================
+// BUILD SIDEBAR from parsed sections
+// ============================================================
+function buildSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.innerHTML = '';
+
+  addSidebarGroup(sidebar, 'Overview');
+
+  if (SECTIONS['last_matches']) {
+    addSidebarBtn(sidebar, 'last_matches', SECTIONS['last_matches']);
+  }
+
+  addSidebarGroup(sidebar, 'League Comparisons');
+
+  if (SECTIONS['all_x01']) {
+    addSidebarBtn(sidebar, 'all_x01', SECTIONS['all_x01']);
+  }
+
+  if (SECTIONS['all_cricket']) {
+    addSidebarBtn(sidebar, 'all_cricket', SECTIONS['all_cricket']);
+  }
+
+  const divSections = {};
+
+  Object.keys(SECTIONS).forEach(key => {
+    const s = SECTIONS[key];
+
+    if (s.division && !key.startsWith('standings_')) {
+      if (!divSections[s.division]) divSections[s.division] = [];
+      divSections[s.division].push({ key, section: s });
+    }
+  });
+
+  const divOrder = Object.keys(divSections).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
+
+  divOrder.forEach(div => {
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'division-wrapper';
+
+    const header = document.createElement('button');
+    header.className = 'division-header';
+
+    const isOpen = div === 'A1';
+
+    header.innerHTML = `
+      <span>Division ${div}</span>
+      <span class="division-arrow">${isOpen ? '▼' : '▶'}</span>
+    `;
+
+    const content = document.createElement('div');
+    content.className = 'division-content';
+    content.style.display = isOpen ? 'block' : 'none';
+
+    const standingsKey = `standings_${div.toLowerCase()}`;
+
+    if (SECTIONS[standingsKey]) {
+      addSidebarBtn(content, standingsKey, SECTIONS[standingsKey]);
+    }
+
+    divSections[div].forEach(({ key, section }) => {
+      addSidebarBtn(content, key, section);
+    });
+
+    header.addEventListener('click', () => {
+      const open = content.style.display === 'block';
+
+      content.style.display = open ? 'none' : 'block';
+
+      header.querySelector('.division-arrow').textContent =
+        open ? '▶' : '▼';
+    });
+
+    wrapper.appendChild(header);
+    wrapper.appendChild(content);
+
+    sidebar.appendChild(wrapper);
+  });
+}
+
+function addSidebarGroup(sidebar, label) {
+  const el = document.createElement('div');
+  el.className = 'sidebar-section-label';
+  el.textContent = label;
+  sidebar.appendChild(el);
+}
+
+function addSidebarBtn(parent, key, section) {
+  const btn = document.createElement('button');
+  btn.className = 'sidebar-btn';
+  btn.dataset.key = key;
+
+  btn.innerHTML = `<span class="sidebar-btn-icon">${section.icon || '📊'}</span><span class="sidebar-btn-text">${section.label}<span class="sidebar-btn-sub">${section.sub || ''}</span></span>`;
+
+  btn.addEventListener('click', () => loadSection(key));
+
+  parent.appendChild(btn);
+}
+
+// ============================================================
+// LOAD SECTION INTO GRID
+// ============================================================
+function loadSection(key) {
+  const section = SECTIONS[key];
+  if (!section) return;
+
+  document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.toggle('active', b.dataset.key === key));
+
+  const divLabel = section.division ? ` · Div ${section.division}` : '';
+  document.getElementById('mainTitle').textContent = section.label + divLabel;
+  document.getElementById('mainSubtitle').textContent = section.sub || '';
+
+  const cols = getColumns(section);
+  gridApi.setGridOption('columnDefs', cols);
+  gridApi.setGridOption('rowData', section.data || []);
+  gridApi.setGridOption('quickFilterText', '');
+  document.getElementById('searchInput').value = '';
+  updateRowCount();
+}
+
+function updateRowCount() {
+  if (!gridApi) return;
+  let c = 0;
+  gridApi.forEachNodeAfterFilter(() => c++);
+  document.getElementById('rowCount').textContent = c;
+}
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  if (gridApi) gridApi.setGridOption('quickFilterText', e.target.value);
+});
+
+// ============================================================
+// OVERLAY HELPERS
+// ============================================================
+function setOverlay(msg) {
+  document.getElementById('overlay').style.display = 'flex';
+  document.getElementById('overlayMsg').textContent = msg;
+  document.getElementById('overlayMsg').className = 'overlay-sub';
+}
+
+function hideOverlay() {
+  document.getElementById('overlay').style.display = 'none';
+}
+
+function showError(msg) {
+  const overlay = document.getElementById('overlay');
+  overlay.style.display = 'flex';
+  overlay.innerHTML = `
+    <div class="overlay-icon">⚠️</div>
+    <div class="overlay-title">Load Failed</div>
+    <div class="overlay-error">${msg}</div>
+    <button class="retry-btn" onclick="location.reload()">↻ Retry</button>
+  `;
+  document.getElementById('loadStatus').textContent = '✗ Failed to load';
+  document.getElementById('loadStatus').style.color = 'var(--red)';
+}
+
+// ============================================================
+// KICK OFF
+// ============================================================
+loadData();
+</script>
+</body>
+</html>
