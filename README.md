@@ -1,21 +1,21 @@
-The website for the Stamford Electronic darts league stinks
-https://amusementsunlimited.net/#!/dart-league/
-It requires way too much scrolling to see lower division schedule and stats. It also has no way to show how you stack up outside of your division
+The website for the Stamford Electronic darts league stinks <br>
+https://amusementsunlimited.net/#!/dart-league/ <br>
+It requires way too much scrolling to see lower division schedule and stats. It also has no way to show how you stack up outside of your division <br>
 
 
-ToDo
-  move standings into tghe divisions buckets
-  create overall 01 and cricket buckets to compare scores across divisions
-  make the divisions collapsible
-  make fonts overall bigger
-  add toggle option for light and darkmode
-  fix buggy sorting visual that looks like it should be an arrow but is instead a box
-  Add schedule screen
-  highlight highest out per division with a tooltip that explains the highlight
-  mobile compatible (make whole left pane collapsible)
+ToDo <br>
+  move standings into tghe divisions buckets✔️<br>
+  create overall 01 and cricket buckets to compare scores across divisions✔️<br>
+  make the divisions collapsible✔️<br>
+  make fonts overall bigger✔️<br>
+  add toggle option for light and darkmode <br>
+  fix buggy sorting visual that looks like it should be an arrow but is instead a box <br>
+  Add schedule screen <br>
+  highlight highest out per division with a tooltip that explains the highlight <br>
+  mobile compatible (make whole left pane collapsible) <br>
 
-  nice to haves
-    store everyones weekly scores and show progress as a graph
+  nice to haves <br>
+    store everyones weekly scores and show progress as a graph <br>
     
   
   
