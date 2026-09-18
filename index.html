@@ -870,7 +870,7 @@ async function openPlayerChart(rowData, statType) {
   document.getElementById('chartModalTitle').textContent = player;
   document.getElementById('chartModalSubtitle').textContent =
     [team, div ? `Div ${div}` : ''].filter(Boolean).join(' · ') +
-    ` · ${statType === 'cricket' ? 'Cricket (MPR)' : 'X01 (PPD)'}  — click a row to see their season progression`;
+    ` · ${statType === 'cricket' ? 'Cricket (MPR)' : 'X01 (PPD)'}`;
   document.getElementById('progressionChart').style.display = 'none';
   document.getElementById('chartNoData').style.display = 'flex';
   document.getElementById('chartModal').classList.add('open');
