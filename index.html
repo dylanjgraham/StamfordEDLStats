@@ -25,6 +25,35 @@
       --muted2: #4a4840;
     }
 
+    /* Light mode overrides */
+    :root[data-theme="light"] {
+      --bg: #f4f3ef;
+      --surface: #ffffff;
+      --surface2: #edecea;
+      --border: #d4d0c8;
+      --accent: #b8960a;
+      --accent-dim: rgba(184,150,10,0.12);
+      --red: #c0392b;
+      --green: #1e8449;
+      --text: #1a1a16;
+      --muted: #7a7568;
+      --muted2: #a8a298;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 32px; height: 32px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+
     body {
       font-family: 'Barlow', sans-serif;
       background: var(--bg);
@@ -278,6 +307,14 @@
       --ag-range-selection-border-color: var(--accent);
     }
 
+    /* Light mode AG Grid overrides */
+    :root[data-theme="light"] .ag-theme-darts {
+      --ag-background-color: #f4f3ef;
+      --ag-header-background-color: #e8e6e0;
+      --ag-odd-row-background-color: #ffffff;
+      --ag-row-hover-color: #edecea;
+    }
+
     .ag-theme-darts .ag-header-cell-label {
       font-size: 10px;
       font-weight: 700;
@@ -377,6 +414,8 @@
     }
     .chart-modal-close:hover { color: var(--text); border-color: var(--muted); }
     .chart-modal-body { padding: 24px; flex: 1; overflow: auto; min-height: 300px; }
+    :root[data-theme="light"] .chart-modal { background: #ffffff; }
+    :root[data-theme="light"] .admin-modal { background: #ffffff; }
     .chart-no-data {
       display: flex; align-items: center; justify-content: center;
       height: 200px; font-family: 'Barlow Condensed', sans-serif;
@@ -396,6 +435,61 @@
     .db-status.error  { border-color: rgba(232,74,74,0.4);  color: var(--red); }
 
     .ag-theme-darts .ag-row { cursor: pointer; }
+
+    /* Trophy icon — highest out in division */
+    .trophy-icon {
+      font-size: 13px;
+      cursor: default;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .trophy-icon:hover::after {
+      content: 'Highest Out this season';
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 6px);
+      transform: translateX(-50%);
+      background: #2a1f00;
+      border: 1px solid rgba(232,200,74,0.5);
+      color: var(--accent);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding: 4px 10px;
+      pointer-events: none;
+      z-index: 500;
+    }
+
+    /* Hide the default SVG sort icons that render as broken squares */
+    .ag-theme-darts .ag-sort-indicator-icon .ag-icon { display: none; }
+    .ag-theme-darts .ag-icon-asc::before  { content: none; }
+    .ag-theme-darts .ag-icon-desc::before { content: none; }
+
+    /* Replace with clean CSS pseudo-element arrows */
+    .ag-theme-darts .ag-header-cell-sorted-asc  .ag-sort-indicator-icon::after,
+    .ag-theme-darts .ag-header-cell-sorted-desc .ag-sort-indicator-icon::after {
+      font-size: 10px;
+      line-height: 1;
+      margin-left: 4px;
+      color: var(--accent);
+    }
+    .ag-theme-darts .ag-header-cell-sorted-asc  .ag-sort-indicator-icon::after { content: '▲'; }
+    .ag-theme-darts .ag-header-cell-sorted-desc .ag-sort-indicator-icon::after { content: '▼'; }
+
+    /* Unsorted columns — faint indicator on hover */
+    .ag-theme-darts .ag-header-cell:not(.ag-header-cell-sorted-asc):not(.ag-header-cell-sorted-desc)
+      .ag-sort-indicator-icon::after {
+      content: '⇅';
+      font-size: 10px;
+      margin-left: 4px;
+      color: var(--muted2);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .ag-theme-darts .ag-header-cell:hover .ag-sort-indicator-icon::after { opacity: 1; }
 
     /* Admin login + save modal */
     .admin-modal-backdrop {
@@ -511,6 +605,7 @@
   <div id="loadStatus"><span class="spinner"></span> Fetching latest data...</div>
   <div class="db-status" id="dbStatus" style="display:none"></div>
   <button class="admin-topbar-btn" id="adminBtn" style="display:none">Admin</button>
+  <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">🌙</button>
 </div>
 
 <div class="layout">
@@ -832,7 +927,7 @@ function renderAdminModal(view) {
   if (view === 'login') {
     inner.innerHTML = `
       <div class="admin-modal-title">🔐 Admin Login</div>
-      <div class="admin-modal-desc">Enter your admin password and a GitHub PAT to save this week's stats.</div>
+      <div class="admin-modal-desc">Enter your admin password and a GitHub PAT to save this week's stats for week to week comparison graphs.</div>
       <div class="admin-field">
         <label class="admin-label" for="adminPassword">Password</label>
         <input class="admin-input" id="adminPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
@@ -958,6 +1053,28 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('adminModal').classList.contains('open')) closeAdminModal();
 });
 
+// ── Theme toggle ──────────────────────────────────────────────────────────────
+(function() {
+  const btn = document.getElementById('themeToggle');
+  const root = document.documentElement;
+  const LS_THEME = 'darts_theme';
+
+  function applyTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    btn.textContent = theme === 'light' ? '🌙' : '☀️';
+    btn.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    try { localStorage.setItem(LS_THEME, theme); } catch {}
+  }
+
+  // Restore saved preference, defaulting to dark
+  const saved = (() => { try { return localStorage.getItem(LS_THEME); } catch { return null; } })();
+  applyTheme(saved === 'light' ? 'light' : 'dark');
+
+  btn.addEventListener('click', () => {
+    applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+})();
+
 // ============================================================
 // FETCH & PARSE
 // ============================================================
@@ -987,6 +1104,18 @@ async function loadData() {
       const partial = parseAllSections(html);
       Object.assign(SECTIONS, partial);
     }
+
+    // Build combined cross-division sections from ALL merged per-division data.
+    // Must happen after the loop so both A and BC divisions are included.
+    const allX01Data     = Object.keys(SECTIONS)
+      .filter(k => k.endsWith('_x01_stats'))
+      .flatMap(k => SECTIONS[k].data ?? []);
+    const allCricketData = Object.keys(SECTIONS)
+      .filter(k => k.endsWith('_cricket_stats'))
+      .flatMap(k => SECTIONS[k].data ?? []);
+    SECTIONS['all_x01_stats']     = { label: 'All Divisions · X01',     icon: '🎯', sub: 'All divisions · PPD', division: null, columns: null, data: allX01Data };
+    SECTIONS['all_cricket_stats'] = { label: 'All Divisions · Cricket', icon: '🏏', sub: 'All divisions · MPR', division: null, columns: null, data: allCricketData };
+
     buildSidebar();
     const firstKey =
       Object.keys(SECTIONS).find(k => k.match(/^a\d+_x01_stats/)) ??
@@ -1097,8 +1226,9 @@ function parseAllSections(html) {
     }
   });
 
-  orderedSections['all_x01_stats']     = { label: 'All Divisions · X01',     icon: '🎯', sub: 'All divisions · PPD', division: null, columns: null, data: allX01Data };
-  orderedSections['all_cricket_stats'] = { label: 'All Divisions · Cricket', icon: '🏏', sub: 'All divisions · MPR', division: null, columns: null, data: allCricketData };
+  // Note: all_x01_stats and all_cricket_stats are NOT built here.
+  // They are assembled in loadData after all API blocks are merged,
+  // so they include every division rather than just one API response.
   return orderedSections;
 }
 
@@ -1280,11 +1410,23 @@ function getColumns(section) {
 
   if (key && key.endsWith('_x01_stats')) {
     const maxPPD = Math.max(...section.data.map(r => r.ppd || 0), 1);
+    // Trophy: only on individual division views (not the combined all-divisions view)
+    const isDivisionView = !!section.division;
+    const maxHiOut = isDivisionView
+      ? Math.max(...section.data.map(r => r.hiOut || 0), 0)
+      : -1; // -1 means no trophy awarded in combined view
     return [
       { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
         const d = p.data;
-        if (!d.mostImproved) return p.value;
-        return `<span style="display:flex;align-items:center;gap:6px;height:40px"><span style="color:var(--green);font-size:11px">▲</span><span>${p.value}</span></span>`;
+        const isTrophy = isDivisionView && d.hiOut != null && d.hiOut > 0 && d.hiOut === maxHiOut;
+        const trophy = isTrophy
+          ? `<span class="trophy-icon" title="Highest Out">🏆</span>`
+          : '';
+        const arrow = d.mostImproved
+          ? `<span style="color:var(--green);font-size:11px">▲</span>`
+          : '';
+        if (!arrow && !trophy) return p.value;
+        return `<span style="display:flex;align-items:center;gap:6px;height:40px">${arrow}<span>${p.value}</span>${trophy}</span>`;
       }},
       { field: 'team', headerName: 'Team', flex: 1.2 },
       { field: 'ppd', headerName: 'PPD', width: 130, sort: 'desc', cellRenderer: p => {
