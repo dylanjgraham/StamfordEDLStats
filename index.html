@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stamford EDL</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ag-grid/31.3.2/ag-grid-community.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500&display=swap');
 
@@ -305,7 +306,7 @@
     .rank-cell { font-family: 'Bebas Neue', sans-serif; font-size: 16px; color: var(--muted); }
     .rank-cell.top { color: var(--accent); }
 
-    /* Most-improved row highlight */
+    /* Most-improved row */
     .ag-theme-darts .ag-row.row-most-improved {
       background-color: rgba(74, 232, 122, 0.07) !important;
       border-left: 3px solid var(--green) !important;
@@ -316,45 +317,200 @@
 
     /* Improvement tooltip */
     .improvement-tooltip {
-      position: fixed;
-      pointer-events: none;
-      background: #1a2e1f;
-      border: 1px solid var(--green);
-      color: var(--text);
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px;
-      padding: 8px 14px;
-      z-index: 9999;
-      display: none;
-      white-space: nowrap;
+      position: fixed; pointer-events: none;
+      background: #1a2e1f; border: 1px solid var(--green);
+      color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; padding: 8px 14px; z-index: 9999;
+      display: none; white-space: nowrap;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-
-    .improvement-tooltip .tip-title {
-      color: var(--green);
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.05em;
-    }
-
-    .improvement-tooltip .tip-row {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 3px;
-    }
-
+    .improvement-tooltip .tip-title { color: var(--green); font-weight: 700; font-size: 14px; letter-spacing: 0.05em; }
+    .improvement-tooltip .tip-row { color: var(--muted); font-size: 11px; margin-top: 3px; }
     .improvement-tooltip .tip-row span { color: var(--text); }
+
+    /* Collapsible sidebar groups */
+    .sidebar-group-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 20px 10px 16px; cursor: pointer; user-select: none;
+      border-left: 2px solid transparent;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .sidebar-group-header:hover { background: var(--surface2); }
+    .sidebar-group-header-label {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    }
+    .sidebar-group-header.open .sidebar-group-header-label { color: var(--text); }
+    .sidebar-group-header.open { border-left-color: var(--muted2); }
+    .sidebar-group-chevron {
+      font-size: 9px; color: var(--muted2);
+      transition: transform 0.2s; display: inline-block;
+    }
+    .sidebar-group-header.open .sidebar-group-chevron { transform: rotate(90deg); color: var(--muted); }
+    .sidebar-group-items { overflow: hidden; max-height: 0; transition: max-height 0.25s ease; }
+    .sidebar-group-items.open { max-height: 600px; }
+
+    /* Player chart modal */
+    .chart-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+      z-index: 200; display: none; align-items: center; justify-content: center;
+    }
+    .chart-modal-backdrop.open { display: flex; }
+    .chart-modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      width: min(760px, 94vw); max-height: 86vh;
+      display: flex; flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+    .chart-modal-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 18px 24px 14px; border-bottom: 1px solid var(--border); gap: 16px;
+    }
+    .chart-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 0.05em; color: var(--text); line-height: 1; }
+    .chart-modal-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .chart-modal-close {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-size: 18px; width: 32px; height: 32px; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .chart-modal-close:hover { color: var(--text); border-color: var(--muted); }
+    .chart-modal-body { padding: 24px; flex: 1; overflow: auto; min-height: 300px; }
+    .chart-no-data {
+      display: flex; align-items: center; justify-content: center;
+      height: 200px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 14px; color: var(--muted); letter-spacing: 0.08em;
+      flex-direction: column; gap: 8px;
+    }
+    .chart-no-data-icon { font-size: 36px; opacity: 0.4; }
+
+    /* db status pill */
+    .db-status {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+      letter-spacing: 0.1em; font-weight: 600; text-transform: uppercase;
+      padding: 3px 10px; border: 1px solid var(--border); color: var(--muted); white-space: nowrap;
+    }
+    .db-status.saved  { border-color: rgba(74,232,122,0.4); color: var(--green); }
+    .db-status.saving { border-color: rgba(232,200,74,0.4); color: var(--accent); }
+    .db-status.error  { border-color: rgba(232,74,74,0.4);  color: var(--red); }
+
+    .ag-theme-darts .ag-row { cursor: pointer; }
+
+    /* Admin login + save modal */
+    .admin-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.82);
+      z-index: 300; display: none; align-items: center; justify-content: center;
+    }
+    .admin-modal-backdrop.open { display: flex; }
+    .admin-modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      width: min(420px, 94vw); padding: 28px 32px 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+    .admin-modal-title {
+      font-family: 'Bebas Neue', sans-serif; font-size: 22px;
+      letter-spacing: 0.05em; color: var(--accent); margin-bottom: 6px;
+    }
+    .admin-modal-desc {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+      color: var(--muted); line-height: 1.5; margin-bottom: 20px;
+    }
+    .admin-field { margin-bottom: 14px; }
+    .admin-label {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+      font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); display: block; margin-bottom: 6px;
+    }
+    .admin-input {
+      width: 100%; background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; padding: 9px 14px; outline: none;
+      transition: border-color 0.2s;
+    }
+    .admin-input:focus { border-color: var(--accent); }
+    .admin-input::placeholder { color: var(--muted2); }
+    .admin-note {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+      color: var(--muted2); margin-top: 5px; line-height: 1.4;
+    }
+    .admin-actions { display: flex; gap: 10px; margin-top: 20px; }
+    .admin-btn-primary {
+      background: var(--accent); border: none; color: #000;
+      font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 9px 24px; cursor: pointer; flex: 1; transition: opacity 0.15s;
+    }
+    .admin-btn-primary:hover { opacity: 0.85; }
+    .admin-btn-primary:disabled { opacity: 0.5; cursor: default; }
+    .admin-btn-cancel {
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 13px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 9px 16px; cursor: pointer; transition: border-color 0.15s;
+    }
+    .admin-btn-cancel:hover { border-color: var(--muted); color: var(--text); }
+    .admin-error {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 12px;
+      color: var(--red); margin-top: 10px; min-height: 18px;
+    }
+    .admin-success {
+      font-family: 'Barlow Condensed', sans-serif; font-size: 12px;
+      color: var(--green); margin-top: 10px; min-height: 18px;
+    }
+    /* Admin button in topbar — hidden until ADMIN_HASH is set */
+    .admin-topbar-btn {
+      background: none; border: 1px solid var(--muted2); color: var(--muted);
+      font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; cursor: pointer; white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .admin-topbar-btn:hover { color: var(--accent); border-color: var(--accent); }
+    .admin-topbar-btn.authed { border-color: rgba(74,232,122,0.5); color: var(--green); }
   </style>
+</head>
 </head>
 <body>
 
 <div id="improvementTooltip" class="improvement-tooltip"></div>
+
+<div class="chart-modal-backdrop" id="chartModal">
+  <div class="chart-modal">
+    <div class="chart-modal-header">
+      <div>
+        <div class="chart-modal-title" id="chartModalTitle">Player</div>
+        <div class="chart-modal-subtitle" id="chartModalSubtitle"></div>
+      </div>
+      <button class="chart-modal-close" id="chartModalClose" title="Close">✕</button>
+    </div>
+    <div class="chart-modal-body">
+      <canvas id="progressionChart"></canvas>
+      <div class="chart-no-data" id="chartNoData" style="display:none">
+        <span class="chart-no-data-icon">📊</span>
+        <span>Not enough data yet</span>
+        <span style="font-size:12px;color:var(--muted2)">Check back after more match nights</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="admin-modal-backdrop" id="adminModal">
+  <div class="admin-modal" id="adminModalInner">
+    <!-- content injected by JS depending on state (login vs save) -->
+  </div>
+</div>
 
 <div class="topbar">
   <div class="topbar-logo">🎯 STAMFORD DARTS<span> LEAGUE</span></div>
   <div class="topbar-divider"></div>
   <!--div class="season-badge" id="seasonBadge">Loading...</div-->
   <div id="loadStatus"><span class="spinner"></span> Fetching latest data...</div>
+  <div class="db-status" id="dbStatus" style="display:none"></div>
+  <button class="admin-topbar-btn" id="adminBtn" style="display:none">Admin</button>
 </div>
 
 <div class="layout">
@@ -388,6 +544,7 @@
 // ============================================================
 let gridApi = null;
 let SECTIONS = {};
+let chartInstance = null;
 
 const defaultColDef = {
   sortable: true,
@@ -396,9 +553,32 @@ const defaultColDef = {
   filterParams: { buttons: ['reset'] },
 };
 
-const tooltip = document.getElementById('improvementTooltip');
+gridApi = agGrid.createGrid(document.getElementById('myGrid'), {
+  columnDefs: [],
+  rowData: [],
+  defaultColDef,
+  animateRows: true,
+  rowSelection: 'single',
+  onFilterChanged: updateRowCount,
+  getRowClass: params => params.data?.mostImproved ? 'row-most-improved' : '',
+});
 
-// Show tooltip on mousemove over grid rows
+// ── Row click → open player chart ──────────────────────────────────────────
+document.getElementById('myGrid').addEventListener('click', e => {
+  const row = e.target.closest('.ag-row');
+  if (!row) return;
+  const rowIndex = row.getAttribute('row-index');
+  if (rowIndex === null) return;
+  let rowData = null;
+  gridApi.forEachNode(node => { if (String(node.rowIndex) === String(rowIndex)) rowData = node.data; });
+  if (!rowData || !rowData.player) return;
+  const activeKey = document.querySelector('.sidebar-btn.active')?.dataset?.key ?? '';
+  const statType = activeKey.endsWith('_cricket_stats') ? 'cricket' : 'x01';
+  openPlayerChart(rowData, statType);
+});
+
+// ── Improvement tooltip ────────────────────────────────────────────────────
+const tooltip = document.getElementById('improvementTooltip');
 document.getElementById('myGrid').addEventListener('mousemove', e => {
   const row = e.target.closest('.ag-row');
   if (!row) { tooltip.style.display = 'none'; return; }
@@ -407,8 +587,6 @@ document.getElementById('myGrid').addEventListener('mousemove', e => {
   let rowData = null;
   gridApi.forEachNode(node => { if (String(node.rowIndex) === String(rowIndex)) rowData = node.data; });
   if (!rowData || !rowData.mostImproved) { tooltip.style.display = 'none'; return; }
-
-  // Build tooltip content
   let html = '';
   if (rowData.improvement != null && rowData.prevPPD != null) {
     html = `<div class="tip-title">▲ Most Improved · X01</div>
@@ -422,7 +600,6 @@ document.getElementById('myGrid').addEventListener('mousemove', e => {
       <div class="tip-row">Improvement:  <span style="color:var(--green)">+${rowData.improvement.toFixed(2)}</span></div>`;
   }
   if (!html) { tooltip.style.display = 'none'; return; }
-
   tooltip.innerHTML = html;
   tooltip.style.display = 'block';
   const tx = Math.min(e.clientX + 16, window.innerWidth - tooltip.offsetWidth - 8);
@@ -430,19 +607,336 @@ document.getElementById('myGrid').addEventListener('mousemove', e => {
   tooltip.style.left = tx + 'px';
   tooltip.style.top  = ty + 'px';
 });
+document.getElementById('myGrid').addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
 
-document.getElementById('myGrid').addEventListener('mouseleave', () => {
-  tooltip.style.display = 'none';
+// ── Chart modal ─────────────────────────────────────────────────────────────
+document.getElementById('chartModalClose').addEventListener('click', closeChartModal);
+document.getElementById('chartModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('chartModal')) closeChartModal();
 });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeChartModal(); });
 
-gridApi = agGrid.createGrid(document.getElementById('myGrid'), {
-  columnDefs: [],
-  rowData: [],
-  defaultColDef,
-  animateRows: true,
-  rowSelection: 'single',
-  onFilterChanged: updateRowCount,
-  getRowClass: params => params.data?.mostImproved ? 'row-most-improved' : '',
+function closeChartModal() {
+  document.getElementById('chartModal').classList.remove('open');
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+}
+
+function makePlayerKey(player, team, div) {
+  return [player, team, div].join('|').toLowerCase().replace(/[^a-z0-9|]/g, '_');
+}
+
+async function openPlayerChart(rowData, statType) {
+  const { player, team = '', div = '' } = rowData;
+  const playerKey = makePlayerKey(player, team, div);
+
+  document.getElementById('chartModalTitle').textContent = player;
+  document.getElementById('chartModalSubtitle').textContent =
+    [team, div ? `Div ${div}` : ''].filter(Boolean).join(' · ') +
+    ` · ${statType === 'cricket' ? 'Cricket (MPR)' : 'X01 (PPD)'}  — click a row to see their season progression`;
+  document.getElementById('progressionChart').style.display = 'none';
+  document.getElementById('chartNoData').style.display = 'flex';
+  document.getElementById('chartModal').classList.add('open');
+  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+
+  if (!historyData) {
+    document.getElementById('chartNoData').querySelector('span:last-child').textContent = 'Loading history…';
+    return;
+  }
+
+  try {
+    const weeks = historyData.weeks || {};
+    const points = Object.values(weeks)
+      .sort((a, b) => a.week - b.week)
+      .flatMap(w => {
+        const entry = w.players?.[playerKey];
+        if (!entry) return [];
+        const val = statType === 'cricket' ? entry.mpr : entry.ppd;
+        return val != null ? [{ week: w.week, val }] : [];
+      });
+
+    if (points.length < 1) {
+      document.getElementById('chartNoData').style.display = 'flex';
+      document.getElementById('progressionChart').style.display = 'none';
+      return;
+    }
+
+    document.getElementById('chartNoData').style.display = 'none';
+    document.getElementById('progressionChart').style.display = 'block';
+
+    const label = statType === 'cricket' ? 'MPR' : 'PPD';
+    const color = statType === 'cricket' ? '#7ad4e8' : '#e8c84a';
+    const ctx = document.getElementById('progressionChart').getContext('2d');
+    chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: points.map(p => `Wk ${p.week}`),
+        datasets: [{
+          label,
+          data: points.map(p => p.val),
+          borderColor: color,
+          backgroundColor: color + '22',
+          pointBackgroundColor: color,
+          pointRadius: 5, pointHoverRadius: 7,
+          tension: 0.3, fill: true,
+        }],
+      },
+      options: {
+        responsive: true,
+        animation: { duration: 400 },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#1a1917', borderColor: color, borderWidth: 1,
+            titleColor: color, bodyColor: '#f0ede0',
+            titleFont: { family: 'Barlow Condensed', size: 13, weight: 'bold' },
+            bodyFont:  { family: 'Barlow Condensed', size: 13 },
+            callbacks: { label: ctx => ` ${label}: ${ctx.parsed.y.toFixed(2)}` },
+          },
+        },
+        scales: {
+          x: { ticks: { color: '#6b6858', font: { family: 'Barlow Condensed', size: 12 } }, grid: { color: '#2a2a26' } },
+          y: { ticks: { color: '#6b6858', font: { family: 'Barlow Condensed', size: 12 }, callback: v => v.toFixed(2) }, grid: { color: '#2a2a26' } },
+        },
+      },
+    });
+  } catch (err) {
+    console.error('Chart load error:', err);
+    document.getElementById('chartNoData').style.display = 'flex';
+  }
+}
+
+// ── History (GitHub JSON) ────────────────────────────────────────────────────
+//
+// SECURITY MODEL:
+//   • Repo owner/name/branch are hardcoded — public info, fine in a public repo.
+//   • ADMIN_HASH is a SHA-256 hash of your chosen password. The plaintext never
+//     appears here. Safe to commit.
+//   • The GitHub PAT is entered at admin login time and kept in memory only —
+//     never written to localStorage, never committed, gone on page close.
+//   • Visitors read history.json with no login via the public raw CDN.
+//   • Only the admin (with the correct password + PAT) can write new data.
+//
+// HOW TO SET YOUR PASSWORD:
+//   Open your browser console on any page and run:
+//     crypto.subtle.digest('SHA-256', new TextEncoder().encode('yourpassword'))
+//       .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
+//   Copy the hex string and paste it as ADMIN_HASH below.
+
+const REPO_OWNER  = 'GITHUB_OWNER';   // ← your GitHub username or org
+const REPO_REPO   = 'GITHUB_REPO';    // ← your repository name
+const REPO_BRANCH = 'main';           // ← branch
+const ADMIN_HASH  = '';               // ← paste your SHA-256 password hash here
+
+// In-memory only — cleared on page close
+let adminPat  = null;
+let adminAuth = false;
+
+let historyData = null;
+
+// ── Public read (no auth) ─────────────────────────────────────────────────────
+async function fetchHistory() {
+  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_REPO}/${REPO_BRANCH}/history.json?bust=${Date.now()}`;
+  const res = await fetch(url);
+  if (res.status === 404) return { lastWeek: 0, weeks: {} };
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function initDb() {
+  try {
+    historyData = await fetchHistory();
+    console.log(`History loaded: ${Object.keys(historyData.weeks || {}).length} weeks`);
+  } catch (e) {
+    console.warn('Could not load history.json:', e);
+    historyData = { lastWeek: 0, weeks: {} };
+  }
+  if (ADMIN_HASH) document.getElementById('adminBtn').style.display = '';
+}
+
+// ── GitHub write helpers ──────────────────────────────────────────────────────
+function ghHeaders(pat) {
+  return {
+    'Authorization': `Bearer ${pat}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'Content-Type': 'application/json',
+  };
+}
+
+async function getFileSha(pat) {
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO_OWNER}/${REPO_REPO}/contents/history.json`,
+    { headers: ghHeaders(pat) }
+  );
+  if (res.status === 404) return null;
+  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+  return (await res.json()).sha;
+}
+
+async function commitHistory(pat, data, sha) {
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+  const body = { message: `Update history.json — week ${data.lastWeek}`, content, branch: REPO_BRANCH };
+  if (sha) body.sha = sha;
+  const res = await fetch(
+    `https://api.github.com/repos/${REPO_OWNER}/${REPO_REPO}/contents/history.json`,
+    { method: 'PUT', headers: ghHeaders(pat), body: JSON.stringify(body) }
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || `GitHub API ${res.status}`);
+  }
+}
+
+// ── Password hashing ──────────────────────────────────────────────────────────
+async function sha256hex(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+// ── DB status pill ────────────────────────────────────────────────────────────
+function setDbStatus(state, msg) {
+  const el = document.getElementById('dbStatus');
+  el.style.display = msg ? '' : 'none';
+  el.className = 'db-status ' + state;
+  el.textContent = msg;
+}
+
+// ── Admin modal ───────────────────────────────────────────────────────────────
+function renderAdminModal(view) {
+  const inner = document.getElementById('adminModalInner');
+
+  if (view === 'login') {
+    inner.innerHTML = `
+      <div class="admin-modal-title">🔐 Admin Login</div>
+      <div class="admin-modal-desc">Enter your admin password and a GitHub PAT to save this week's stats.</div>
+      <div class="admin-field">
+        <label class="admin-label" for="adminPassword">Password</label>
+        <input class="admin-input" id="adminPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <div class="admin-field">
+        <label class="admin-label" for="adminPatInput">GitHub Personal Access Token</label>
+        <input class="admin-input" id="adminPatInput" type="password" placeholder="github_pat_…" autocomplete="off" />
+        <div class="admin-note">Needs Contents: Read &amp; Write on this repo. Kept in memory only — never stored.</div>
+      </div>
+      <div class="admin-error" id="adminError"></div>
+      <div class="admin-actions">
+        <button class="admin-btn-primary" id="adminLoginBtn">Login</button>
+        <button class="admin-btn-cancel" id="adminCancelBtn">Cancel</button>
+      </div>`;
+
+    const doLogin = async () => {
+      const pw  = document.getElementById('adminPassword').value;
+      const pat = document.getElementById('adminPatInput').value.trim();
+      const err = document.getElementById('adminError');
+      const btn = document.getElementById('adminLoginBtn');
+      err.textContent = '';
+      if (!pw || !pat) { err.textContent = 'Both fields are required.'; return; }
+      btn.textContent = 'Verifying…'; btn.disabled = true;
+      const hash = await sha256hex(pw);
+      if (hash !== ADMIN_HASH) {
+        err.textContent = 'Incorrect password.';
+        btn.textContent = 'Login'; btn.disabled = false; return;
+      }
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_REPO}`, { headers: ghHeaders(pat) });
+        if (!res.ok) { const e = await res.json().catch(()=>({})); throw new Error(e.message || `HTTP ${res.status}`); }
+      } catch(e) {
+        err.textContent = `PAT error: ${e.message}`;
+        btn.textContent = 'Login'; btn.disabled = false; return;
+      }
+      adminPat = pat;
+      adminAuth = true;
+      document.getElementById('adminBtn').classList.add('authed');
+      document.getElementById('adminBtn').textContent = 'Admin ✓';
+      renderAdminModal('save');
+    };
+
+    document.getElementById('adminLoginBtn').addEventListener('click', doLogin);
+    document.getElementById('adminPassword').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('adminPatInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+    document.getElementById('adminCancelBtn').addEventListener('click', closeAdminModal);
+
+  } else if (view === 'save') {
+    const weekNum = (() => {
+      for (const s of Object.values(SECTIONS)) {
+        if (s.improvedWeek && s.improvedWeek !== '?') return parseInt(s.improvedWeek, 10);
+      }
+      return null;
+    })();
+    const lastSaved = historyData?.lastWeek ?? 0;
+    const isNew = weekNum && weekNum > lastSaved;
+
+    inner.innerHTML = `
+      <div class="admin-modal-title">💾 Save Week ${weekNum ?? '?'}</div>
+      <div class="admin-modal-desc">
+        ${isNew
+          ? `New data detected. Last saved: <strong>Week ${lastSaved || 'never'}</strong>. Ready to commit Week ${weekNum} stats to <code>history.json</code>.`
+          : `Week ${weekNum} is already saved (last saved: Week ${lastSaved}). You can force a re-save if needed.`}
+      </div>
+      <div class="admin-error" id="adminError"></div>
+      <div class="admin-success" id="adminSuccess"></div>
+      <div class="admin-actions">
+        <button class="admin-btn-primary" id="adminSaveBtn">${isNew ? 'Save Now' : 'Force Re-save'}</button>
+        <button class="admin-btn-cancel" id="adminCancelBtn">Close</button>
+      </div>`;
+
+    document.getElementById('adminCancelBtn').addEventListener('click', closeAdminModal);
+    document.getElementById('adminSaveBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('adminSaveBtn');
+      const err = document.getElementById('adminError');
+      const suc = document.getElementById('adminSuccess');
+      err.textContent = ''; suc.textContent = '';
+      btn.textContent = 'Saving…'; btn.disabled = true;
+      try {
+        await doSaveHistory(weekNum);
+        suc.textContent = `✓ Week ${weekNum} committed to history.json`;
+        btn.textContent = 'Saved ✓';
+        setDbStatus('saved', `Wk ${weekNum} saved ✓`);
+      } catch(e) {
+        err.textContent = `Save failed: ${e.message}`;
+        btn.textContent = 'Retry'; btn.disabled = false;
+      }
+    });
+  }
+}
+
+async function doSaveHistory(weekNum) {
+  const x01Data     = SECTIONS['all_x01_stats']?.data     ?? [];
+  const cricketData = SECTIONS['all_cricket_stats']?.data ?? [];
+  const players = {};
+  for (const r of x01Data) {
+    const key = makePlayerKey(r.player, r.team || '', r.div || '');
+    if (!players[key]) players[key] = { player: r.player, team: r.team || '', div: r.div || '' };
+    players[key].ppd = r.ppd;
+  }
+  for (const r of cricketData) {
+    const key = makePlayerKey(r.player, r.team || '', r.div || '');
+    if (!players[key]) players[key] = { player: r.player, team: r.team || '', div: r.div || '' };
+    players[key].mpr = r.mpr;
+  }
+  if (!historyData) historyData = { lastWeek: 0, weeks: {} };
+  historyData.weeks = historyData.weeks || {};
+  historyData.weeks[String(weekNum)] = { week: weekNum, players, savedAt: Date.now() };
+  historyData.lastWeek = Math.max(historyData.lastWeek || 0, weekNum);
+  const sha = await getFileSha(adminPat);
+  await commitHistory(adminPat, historyData, sha);
+}
+
+function openAdminModal() {
+  document.getElementById('adminModal').classList.add('open');
+  renderAdminModal(adminAuth ? 'save' : 'login');
+}
+
+function closeAdminModal() {
+  document.getElementById('adminModal').classList.remove('open');
+}
+
+document.getElementById('adminBtn').addEventListener('click', openAdminModal);
+document.getElementById('adminModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('adminModal')) closeAdminModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('adminModal').classList.contains('open')) closeAdminModal();
 });
 
 // ============================================================
@@ -450,12 +944,10 @@ gridApi = agGrid.createGrid(document.getElementById('myGrid'), {
 // ============================================================
 async function loadData() {
   setOverlay('Fetching latest stats...');
-
   const URLS = [
     'https://api.amusementsunlimited.net/api/pages/get_page/?page_type=division_a_stats',
     'https://api.amusementsunlimited.net/api/pages/get_page/?page_type=division_bc_stats',
   ];
-
   let htmlBlocks = [];
   try {
     const responses = await Promise.all(URLS.map(u => fetch(u)));
@@ -470,20 +962,21 @@ async function loadData() {
     showError('Failed to fetch data: ' + e.message);
     return;
   }
-
   try {
-    // Parse each block then merge — later blocks' divisions are appended after earlier ones
     SECTIONS = {};
     for (const html of htmlBlocks) {
       const partial = parseAllSections(html);
       Object.assign(SECTIONS, partial);
     }
     buildSidebar();
-    const firstKey = Object.keys(SECTIONS)[0];
+    const firstKey =
+      Object.keys(SECTIONS).find(k => k.match(/^a\d+_x01_stats/)) ??
+      Object.keys(SECTIONS)[0];
     if (firstKey) loadSection(firstKey);
     hideOverlay();
     document.getElementById('loadStatus').textContent = '✓ Live data loaded';
     document.getElementById('loadStatus').style.color = 'var(--green)';
+    await initDb(); // loads history.json publicly; shows admin btn if hash is set
   } catch (e) {
     showError('Failed to parse data: ' + e.message);
     console.error(e);
@@ -496,11 +989,8 @@ async function loadData() {
 function parseAllSections(html) {
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, 'text/html');
-
-  // First pass: collect all raw tables keyed by type
-  const raw = { x01Improved: {}, cricketImproved: {}, x01Stats: {}, cricketStats: {} };
-  const orderedSections = {}; // final output, insertion-ordered
-
+  const raw = { x01Improved: {}, cricketImproved: {}, x01Stats: {}, cricketStats: {}, standings: [] };
+  const orderedSections = {};
   const allTables = Array.from(doc.querySelectorAll('table'));
 
   for (let i = 0; i < allTables.length; i++) {
@@ -510,30 +1000,25 @@ function parseAllSections(html) {
     console.log(`Table ${i}: h3="${sectionName}" headers=[${headers.join(', ')}]`);
 
     if (headers.includes('Weeks') && headers.includes('Wins') && headers.includes('Losses')) {
-      orderedSections['standings'] = { label: 'Standings', icon: '🏆', sub: 'All Divisions', columns: null, data: parseStandings(table) };
-
+      raw.standings = parseStandings(table);
     } else if (headers.includes('Against') && headers.includes('Forfeits')) {
       orderedSections['last_matches'] = { label: 'Last Match Results', icon: '📋', sub: 'Most recent results', columns: null, data: parseMatchResults(table) };
-
     } else if (headers.includes('PPD Improvement')) {
       const divMatch = sectionName.match(/Division\s+(\w+)/i);
       const div = divMatch ? divMatch[1] : 'Unknown';
       const weekMatch = sectionName.match(/week\s+(\d+)/i);
       const week = weekMatch ? weekMatch[1] : '?';
       raw.x01Improved[div] = { week, data: parseImprovedX01(table) };
-
     } else if (headers.includes('MPR Improvement')) {
       const divMatch = sectionName.match(/Division\s+(\w+)/i);
       const div = divMatch ? divMatch[1] : 'Unknown';
       const weekMatch = sectionName.match(/week\s+(\d+)/i);
       const week = weekMatch ? weekMatch[1] : '?';
       raw.cricketImproved[div] = { week, data: parseImprovedCricket(table) };
-
     } else if (headers.includes('PPD') && headers.includes('HiOut') && headers.includes('Ton80')) {
       const divMatch = sectionName.match(/Division\s+(\w+)/i);
       const div = divMatch ? divMatch[1] : 'Unknown';
       raw.x01Stats[div] = parseX01Stats(table);
-
     } else if (headers.includes('MPR') && headers.includes('9MR')) {
       const divMatch = sectionName.match(/Division\s+(\w+)/i);
       const div = divMatch ? divMatch[1] : 'Unknown';
@@ -541,69 +1026,60 @@ function parseAllSections(html) {
     }
   }
 
-  // Second pass: merge improved data into stats rows, then add to final sections
   const allDivs = new Set([
     ...Object.keys(raw.x01Stats),
     ...Object.keys(raw.cricketStats),
+    ...(raw.standings.map(r => r.division)),
   ]);
-
-  // Sort divisions: B1, B2, B3, C1 etc.
   const sortedDivs = [...allDivs].sort();
+  const standingsByDiv = {};
+  raw.standings.forEach(r => {
+    if (!standingsByDiv[r.division]) standingsByDiv[r.division] = [];
+    standingsByDiv[r.division].push(r);
+  });
+  const allX01Data = [];
+  const allCricketData = [];
 
   sortedDivs.forEach(div => {
-    // ---- X01 stats + improved merged ----
+    if (standingsByDiv[div]) {
+      orderedSections[`${div.toLowerCase()}_standings`] = {
+        label: 'Standings', icon: '🏆', sub: `Division ${div}`,
+        division: div, columns: null,
+        data: standingsByDiv[div].map((r, i) => ({ ...r, rank: i + 1 })),
+      };
+    }
     if (raw.x01Stats[div]) {
       const improvedMap = {};
-      if (raw.x01Improved[div]) {
-        raw.x01Improved[div].data.forEach(r => {
-          improvedMap[r.player.toLowerCase()] = r;
-        });
-      }
+      if (raw.x01Improved[div]) raw.x01Improved[div].data.forEach(r => { improvedMap[r.player.toLowerCase()] = r; });
       const week = raw.x01Improved[div]?.week ?? '?';
       const mergedX01 = raw.x01Stats[div].map(r => {
         const imp = improvedMap[r.player.toLowerCase()];
-        return imp
-          ? { ...r, mostImproved: true, improvement: imp.improvement, prevPPD: imp.prevPPD }
-          : { ...r, mostImproved: false };
+        return imp ? { ...r, mostImproved: true, improvement: imp.improvement, prevPPD: imp.prevPPD } : { ...r, mostImproved: false };
       });
       orderedSections[`${div.toLowerCase()}_x01_stats`] = {
-        label: 'Player Stats · X01',
-        icon: '🎯',
-        sub: `Div ${div} · % Wins`,
-        division: div,
-        improvedWeek: week,
-        columns: null,
-        data: mergedX01,
+        label: 'Player Stats · X01', icon: '🎯', sub: `Div ${div} · PPD`,
+        division: div, improvedWeek: week, columns: null, data: mergedX01,
       };
+      allX01Data.push(...mergedX01);
     }
-
-    // ---- Cricket stats + improved merged ----
     if (raw.cricketStats[div]) {
       const improvedMap = {};
-      if (raw.cricketImproved[div]) {
-        raw.cricketImproved[div].data.forEach(r => {
-          improvedMap[r.player.toLowerCase()] = r;
-        });
-      }
+      if (raw.cricketImproved[div]) raw.cricketImproved[div].data.forEach(r => { improvedMap[r.player.toLowerCase()] = r; });
       const week = raw.cricketImproved[div]?.week ?? '?';
       const mergedCricket = raw.cricketStats[div].map(r => {
         const imp = improvedMap[r.player.toLowerCase()];
-        return imp
-          ? { ...r, mostImproved: true, improvement: imp.improvement, prevMPR: imp.prevMPR }
-          : { ...r, mostImproved: false };
+        return imp ? { ...r, mostImproved: true, improvement: imp.improvement, prevMPR: imp.prevMPR } : { ...r, mostImproved: false };
       });
       orderedSections[`${div.toLowerCase()}_cricket_stats`] = {
-        label: 'Player Stats · Cricket',
-        icon: '🏏',
-        sub: `Div ${div} · % Wins`,
-        division: div,
-        improvedWeek: week,
-        columns: null,
-        data: mergedCricket,
+        label: 'Player Stats · Cricket', icon: '🏏', sub: `Div ${div} · MPR`,
+        division: div, improvedWeek: week, columns: null, data: mergedCricket,
       };
+      allCricketData.push(...mergedCricket);
     }
   });
 
+  orderedSections['all_x01_stats']     = { label: 'All Divisions · X01',     icon: '🎯', sub: 'All divisions · PPD', division: null, columns: null, data: allX01Data };
+  orderedSections['all_cricket_stats'] = { label: 'All Divisions · Cricket', icon: '🏏', sub: 'All divisions · MPR', division: null, columns: null, data: allCricketData };
   return orderedSections;
 }
 
@@ -734,9 +1210,10 @@ function getColumns(section) {
   const key = Object.keys(SECTIONS).find(k => SECTIONS[k] === section);
 
   if (key === 'standings') {
+    const playoffCutoff = section.data.length >= 8 ? 6 : 4;
     const maxW = Math.max(...section.data.map(r => r.wins || 0));
     return [
-      { field: 'rank', headerName: '#', width: 52, cellRenderer: p => `<span class="rank-cell ${p.value <= 3 ? 'top' : ''}">${p.value}</span>` },
+      { field: 'rank', headerName: '#', width: 52, cellRenderer: p => `<span class="rank-cell ${p.value <= playoffCutoff ? 'top' : ''}">${p.value}</span>` },
       { field: 'division', headerName: 'Div', width: 70, cellRenderer: p => `<span class="div-badge">${p.value}</span>` },
       { field: 'team', headerName: 'Team', flex: 2 },
       { field: 'weeks', headerName: 'Wks', width: 70 },
@@ -784,15 +1261,11 @@ function getColumns(section) {
 
   if (key && key.endsWith('_x01_stats')) {
     const maxPPD = Math.max(...section.data.map(r => r.ppd || 0), 1);
-    const week = section.improvedWeek ?? '?';
     return [
       { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
         const d = p.data;
         if (!d.mostImproved) return p.value;
-        return `<span style="display:flex;align-items:center;gap:6px;height:40px">
-          <span style="color:var(--green);font-size:11px;line-height:1">▲</span>
-          <span>${p.value}</span>
-        </span>`;
+        return `<span style="display:flex;align-items:center;gap:6px;height:40px"><span style="color:var(--green);font-size:11px">▲</span><span>${p.value}</span></span>`;
       }},
       { field: 'team', headerName: 'Team', flex: 1.2 },
       { field: 'ppd', headerName: 'PPD', width: 130, sort: 'desc', cellRenderer: p => {
@@ -812,16 +1285,8 @@ function getColumns(section) {
 
   if (key && key.endsWith('_cricket_stats')) {
     const maxMPR = Math.max(...section.data.map(r => r.mpr || 0), 1);
-    const week = section.improvedWeek ?? '?';
     return [
-      { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
-        const d = p.data;
-        if (!d.mostImproved) return p.value;
-        return `<span style="display:flex;align-items:center;gap:6px;height:40px">
-          <span style="color:var(--green);font-size:11px;line-height:1">▲</span>
-          <span>${p.value}</span>
-        </span>`;
-      }},
+      { field: 'player', headerName: 'Player', flex: 1.5 },
       { field: 'team', headerName: 'Team', flex: 1.2 },
       { field: 'mpr', headerName: 'MPR', width: 130, sort: 'desc', cellRenderer: p => {
         const pct = (p.value/maxMPR)*100;
@@ -854,51 +1319,64 @@ function buildSidebar() {
   const sidebar = document.getElementById('sidebar');
   sidebar.innerHTML = '';
 
-  // Group sections logically
-  const groups = {
-    'Overview': ['standings', 'last_matches'],
-  };
-
-  // Collect division keys
-  const divSections = {};
-  Object.keys(SECTIONS).forEach(key => {
-    const s = SECTIONS[key];
-    if (s.division) {
-      if (!divSections[s.division]) divSections[s.division] = [];
-      divSections[s.division].push(key);
-    }
-  });
-
-  // Add overview group
-  addSidebarGroup(sidebar, 'Overview');
-  ['standings', 'last_matches'].forEach(key => {
+  // Overview — non-collapsible
+  const overviewLabel = document.createElement('div');
+  overviewLabel.className = 'sidebar-section-label';
+  overviewLabel.textContent = 'Overview';
+  sidebar.appendChild(overviewLabel);
+  ['all_x01_stats', 'all_cricket_stats', 'last_matches'].forEach(key => {
     if (SECTIONS[key]) addSidebarBtn(sidebar, key, SECTIONS[key]);
   });
 
-  // Add division groups in order
-  const divOrder = Object.keys(divSections).sort();
-  divOrder.forEach(div => {
-    addSidebarGroup(sidebar, `Division ${div}`);
-    divSections[div].forEach(key => {
-      if (SECTIONS[key]) addSidebarBtn(sidebar, key, SECTIONS[key]);
+  // Per-division collapsible groups
+  const divSections = {};
+  Object.keys(SECTIONS).forEach(key => {
+    const s = SECTIONS[key];
+    if (!s.division) return;
+    if (!divSections[s.division]) divSections[s.division] = [];
+    divSections[s.division].push(key);
+  });
+
+  // Order within each division: standings → x01 → cricket
+  const typeOrder = ['_standings', '_x01_stats', '_cricket_stats'];
+  Object.keys(divSections).forEach(div => {
+    divSections[div].sort((a, b) => {
+      const ai = typeOrder.findIndex(t => a.endsWith(t));
+      const bi = typeOrder.findIndex(t => b.endsWith(t));
+      return (ai === -1 ? 99 : ai) - (bi === -1 ? 99 : bi);
     });
+  });
+
+  const divOrder = Object.keys(divSections).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const firstADiv = divOrder.find(d => d.startsWith('A')) ?? divOrder[0];
+
+  divOrder.forEach(div => {
+    addCollapsibleGroup(sidebar, div, divSections[div], div === firstADiv);
   });
 }
 
-function addSidebarGroup(sidebar, label) {
-  const el = document.createElement('div');
-  el.className = 'sidebar-section-label';
-  el.textContent = label;
-  sidebar.appendChild(el);
+function addCollapsibleGroup(sidebar, div, keys, defaultOpen) {
+  const header = document.createElement('div');
+  header.className = 'sidebar-group-header' + (defaultOpen ? ' open' : '');
+  header.innerHTML = `<span class="sidebar-group-header-label">Division ${div}</span><span class="sidebar-group-chevron">▶</span>`;
+  const items = document.createElement('div');
+  items.className = 'sidebar-group-items' + (defaultOpen ? ' open' : '');
+  keys.forEach(key => { if (SECTIONS[key]) addSidebarBtn(items, key, SECTIONS[key]); });
+  header.addEventListener('click', () => {
+    const isOpen = items.classList.toggle('open');
+    header.classList.toggle('open', isOpen);
+  });
+  sidebar.appendChild(header);
+  sidebar.appendChild(items);
 }
 
-function addSidebarBtn(sidebar, key, section) {
+function addSidebarBtn(container, key, section) {
   const btn = document.createElement('button');
   btn.className = 'sidebar-btn';
   btn.dataset.key = key;
   btn.innerHTML = `<span class="sidebar-btn-icon">${section.icon || '📊'}</span><span class="sidebar-btn-text">${section.label}<span class="sidebar-btn-sub">${section.sub || ''}</span></span>`;
   btn.addEventListener('click', () => loadSection(key));
-  sidebar.appendChild(btn);
+  container.appendChild(btn);
 }
 
 // ============================================================
@@ -910,9 +1388,22 @@ function loadSection(key) {
 
   document.querySelectorAll('.sidebar-btn').forEach(b => b.classList.toggle('active', b.dataset.key === key));
 
+  // Auto-expand the collapsible group containing this button
+  const activeBtn = document.querySelector(`.sidebar-btn[data-key="${key}"]`);
+  if (activeBtn) {
+    const items = activeBtn.closest('.sidebar-group-items');
+    if (items && !items.classList.contains('open')) {
+      items.classList.add('open');
+      const hdr = items.previousElementSibling;
+      if (hdr) hdr.classList.add('open');
+    }
+  }
+
   const divLabel = section.division ? ` · Div ${section.division}` : '';
   document.getElementById('mainTitle').textContent = section.label + divLabel;
-  document.getElementById('mainSubtitle').textContent = section.sub || '';
+  document.getElementById('mainSubtitle').textContent =
+    (section.sub || '') + (section.division && (key.endsWith('_x01_stats') || key.endsWith('_cricket_stats'))
+      ? '  —  click any row to view season progression' : '');
 
   const cols = getColumns(section);
   gridApi.setGridOption('columnDefs', cols);
