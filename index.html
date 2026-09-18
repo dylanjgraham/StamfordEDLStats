@@ -328,6 +328,7 @@
     .bar-cell { display: flex; align-items: center; gap: 8px; height: 40px; }
     .bar-wrap { flex: 1; background: var(--border); height: 3px; }
     .bar-fill { height: 3px; border-radius: 2px; }
+    @media (max-width: 768px) { .bar-wrap { display: none; } }
     .ppd-cell { color: var(--accent); font-weight: 600; }
     .mpr-cell { color: #7ad4e8; font-weight: 600; }
     .improvement-cell { color: var(--green); font-weight: 600; }
@@ -788,7 +789,17 @@ gridApi = agGrid.createGrid(document.getElementById('myGrid'), {
   rowSelection: 'single',
   onFilterChanged: updateRowCount,
   getRowClass: params => params.data?.mostImproved ? 'row-most-improved' : '',
+  onFirstDataRendered: autoSizeNameColumns,
+  onRowDataUpdated: autoSizeNameColumns,
 });
+
+function autoSizeNameColumns() {
+  // Auto-size player and team columns to fit content; leave numeric cols at fixed widths
+  const colIds = gridApi.getColumns()
+    ?.filter(c => ['player','team','against'].includes(c.getColId()))
+    ?.map(c => c.getColId());
+  if (colIds && colIds.length) gridApi.autoSizeColumns(colIds, false);
+}
 
 // ── Row click → open player chart ──────────────────────────────────────────
 document.getElementById('myGrid').addEventListener('click', e => {
@@ -1530,7 +1541,7 @@ function getColumns(section) {
     return [
       { field: 'rank', headerName: '#', width: 52, cellRenderer: p => `<span class="rank-cell ${p.value <= playoffCutoff ? 'top' : ''}">${p.value}</span>` },
       { field: 'division', headerName: 'Div', width: 70, cellRenderer: p => `<span class="div-badge">${p.value}</span>` },
-      { field: 'team', headerName: 'Team', flex: 2 },
+      { field: 'team', headerName: 'Team', flex: 2, minWidth: 120 },
       { field: 'weeks', headerName: 'Wks', width: 70 },
       { field: 'wins', headerName: 'W', flex: 1, cellRenderer: p => {
         const pct = maxW ? (p.value/maxW)*100 : 0;
@@ -1543,8 +1554,8 @@ function getColumns(section) {
 
   if (key === 'last_matches') {
     return [
-      { field: 'team', headerName: 'Team', flex: 1.5 },
-      { field: 'against', headerName: 'Against', flex: 1.5 },
+      { field: 'team', headerName: 'Team', flex: 1.5, minWidth: 120 },
+      { field: 'against', headerName: 'Against', flex: 1.5, minWidth: 120 },
       { field: 'date', headerName: 'Date', width: 160 },
       { field: 'week', headerName: 'Wk', width: 60 },
       { field: 'games', headerName: 'Gms', width: 65 },
@@ -1556,8 +1567,8 @@ function getColumns(section) {
 
   if (key && key.endsWith('_x01_improved')) {
     return [
-      { field: 'player', headerName: 'Player', flex: 1.5 },
-      { field: 'team', headerName: 'Team', flex: 1.5 },
+      { field: 'player', headerName: 'Player', flex: 1.5, minWidth: 120 },
+      { field: 'team', headerName: 'Team', flex: 1.5, minWidth: 120 },
       { field: 'prevPPD', headerName: 'Prev PPD', width: 110, valueFormatter: p => p.value?.toFixed(2) },
       { field: 'ppd', headerName: 'PPD', width: 90, cellRenderer: p => `<span class="ppd-cell">${p.value?.toFixed(2)}</span>` },
       { field: 'improvement', headerName: '▲ PPD', width: 110, sort: 'desc', cellRenderer: p => `<span class="improvement-cell">+${p.value?.toFixed(2)}</span>` },
@@ -1566,8 +1577,8 @@ function getColumns(section) {
 
   if (key && key.endsWith('_cricket_improved')) {
     return [
-      { field: 'player', headerName: 'Player', flex: 1.5 },
-      { field: 'team', headerName: 'Team', flex: 1.5 },
+      { field: 'player', headerName: 'Player', flex: 1.5, minWidth: 120 },
+      { field: 'team', headerName: 'Team', flex: 1.5, minWidth: 120 },
       { field: 'prevMPR', headerName: 'Prev MPR', width: 110, valueFormatter: p => p.value?.toFixed(2) },
       { field: 'mpr', headerName: 'MPR', width: 90, cellRenderer: p => `<span class="mpr-cell">${p.value?.toFixed(2)}</span>` },
       { field: 'improvement', headerName: '▲ MPR', width: 110, sort: 'desc', cellRenderer: p => `<span class="improvement-cell">+${p.value?.toFixed(2)}</span>` },
@@ -1582,7 +1593,7 @@ function getColumns(section) {
       ? Math.max(...section.data.map(r => r.hiOut || 0), 0)
       : -1; // -1 means no trophy awarded in combined view
     return [
-      { field: 'player', headerName: 'Player', flex: 1.5, cellRenderer: p => {
+      { field: 'player', headerName: 'Player', flex: 1.5, minWidth: 120, cellRenderer: p => {
         const d = p.data;
         const isTrophy = isDivisionView && d.hiOut != null && d.hiOut > 0 && d.hiOut === maxHiOut;
         const trophy = isTrophy
@@ -1594,7 +1605,7 @@ function getColumns(section) {
         if (!arrow && !trophy) return p.value;
         return `<span style="display:flex;align-items:center;gap:6px;height:40px">${arrow}<span>${p.value}</span>${trophy}</span>`;
       }},
-      { field: 'team', headerName: 'Team', flex: 1.2 },
+      { field: 'team', headerName: 'Team', flex: 1.2, minWidth: 110 },
       { field: 'ppd', headerName: 'PPD', width: 130, sort: 'desc', cellRenderer: p => {
         const pct = (p.value/maxPPD)*100;
         return `<div class="bar-cell"><span class="ppd-cell" style="min-width:40px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`;
@@ -1613,8 +1624,8 @@ function getColumns(section) {
   if (key && key.endsWith('_cricket_stats')) {
     const maxMPR = Math.max(...section.data.map(r => r.mpr || 0), 1);
     return [
-      { field: 'player', headerName: 'Player', flex: 1.5 },
-      { field: 'team', headerName: 'Team', flex: 1.2 },
+      { field: 'player', headerName: 'Player', flex: 1.5, minWidth: 120 },
+      { field: 'team', headerName: 'Team', flex: 1.2, minWidth: 110 },
       { field: 'mpr', headerName: 'MPR', width: 130, sort: 'desc', cellRenderer: p => {
         const pct = (p.value/maxMPR)*100;
         return `<div class="bar-cell"><span class="mpr-cell" style="min-width:36px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:#7ad4e8"></div></div></div>`;
