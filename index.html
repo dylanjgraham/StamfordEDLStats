@@ -722,10 +722,10 @@ async function openPlayerChart(rowData, statType) {
 //       .then(b => console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
 //   Copy the hex string and paste it as ADMIN_HASH below.
 
-const REPO_OWNER  = 'GITHUB_OWNER';   // ← your GitHub username or org
-const REPO_REPO   = 'GITHUB_REPO';    // ← your repository name
+const REPO_OWNER  = 'dylanjgraham';   // ← your GitHub username or org
+const REPO_REPO   = 'StamfordEDLStats';    // ← your repository name
 const REPO_BRANCH = 'main';           // ← branch
-const ADMIN_HASH  = '';               // ← paste your SHA-256 password hash here
+const ADMIN_HASH  = 'e7988ea2dfceee762b7e6c5c2ef4a65acb893af4a42e5da23031627613c7db43';               // SHA-256 password hash here
 
 // In-memory only — cleared on page close
 let adminPat  = null;
