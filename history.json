@@ -4,6 +4,286 @@
     "1": {
       "week": 1,
       "players": {
+        "junior_ahat|big_slick|a1": {
+          "player": "Junior Ahat",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 32.24,
+          "mpr": 3.95
+        },
+        "aidan_houghton|burns_bastards|a1": {
+          "player": "Aidan Houghton",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 31.94,
+          "mpr": 2.11
+        },
+        "steve_mahalic|big_slick|a1": {
+          "player": "Steve Mahalic",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 29.4,
+          "mpr": 3.59
+        },
+        "mike_bowers|burns_bastards|a1": {
+          "player": "Mike Bowers",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 28.41,
+          "mpr": 3.22
+        },
+        "joe_maillard|big_last|a1": {
+          "player": "Joe Maillard",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 27.82,
+          "mpr": 3.59
+        },
+        "rob_dwinall|big_slick|a1": {
+          "player": "Rob Dwinall",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 27.41,
+          "mpr": 3
+        },
+        "mike_pribanic|tons_of_bulls|a1": {
+          "player": "Mike Pribanic",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 25.52,
+          "mpr": 2.2
+        },
+        "mike_kerner|big_last|a1": {
+          "player": "Mike Kerner",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 24.45,
+          "mpr": 3.36
+        },
+        "ben_green|big_last|a1": {
+          "player": "Ben Green",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 23.94,
+          "mpr": 3.47
+        },
+        "shawn_neilsen|big_last|a1": {
+          "player": "Shawn Neilsen",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 23.78,
+          "mpr": 3
+        },
+        "paddy_mcardle|burns_bastards|a1": {
+          "player": "Paddy McArdle",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 22.93,
+          "mpr": 2.53
+        },
+        "nelson_caitan|big_slick|a1": {
+          "player": "Nelson Caitan",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 21.54,
+          "mpr": 2.85
+        },
+        "dallas_turzer|tons_of_bulls|a1": {
+          "player": "Dallas Turzer",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 21.33,
+          "mpr": 2.12
+        },
+        "jerome_ramos|tons_of_bulls|a1": {
+          "player": "Jerome Ramos",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 21.27,
+          "mpr": 2
+        },
+        "greg_theile|burns_bastards|a1": {
+          "player": "Greg Theile",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 18.41,
+          "mpr": 2.94
+        },
+        "ken_turzer|tons_of_bulls|a1": {
+          "player": "Ken Turzer",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 17.86,
+          "mpr": 1.79
+        },
+        "gerson_anariba|ya_pa_que|a2": {
+          "player": "Gerson Anariba",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 30.98,
+          "mpr": 2.95
+        },
+        "hector_batista|tons_r_us|a2": {
+          "player": "Hector Batista",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 24.85,
+          "mpr": 2.68
+        },
+        "erwin_ramirez|bullseye_bullies|a2": {
+          "player": "Erwin Ramirez",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 24.75,
+          "mpr": 2.53
+        },
+        "jack_drowne|bullshigh|a2": {
+          "player": "Jack Drowne",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 24.66,
+          "mpr": 2.5
+        },
+        "mike_myers|six_pack_attack|a2": {
+          "player": "Mike Myers",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 24.33,
+          "mpr": 2.19
+        },
+        "tony_cummings|bullseye_bullies|a2": {
+          "player": "Tony Cummings",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 24.32,
+          "mpr": 2.32
+        },
+        "daniel_dominguez|six_pack_attack|a2": {
+          "player": "Daniel Dominguez",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 23.77,
+          "mpr": 3.08
+        },
+        "armando_pineda|six_pack_attack|a2": {
+          "player": "Armando Pineda",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 22.87,
+          "mpr": 2.74
+        },
+        "billy_murphy|bullshigh|a2": {
+          "player": "Billy Murphy",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 22.25,
+          "mpr": 2.19
+        },
+        "andrew_tuccinardi|bullshigh|a2": {
+          "player": "Andrew Tuccinardi",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 21.75,
+          "mpr": 1.98
+        },
+        "chris_jack|phoenix_arrows|a2": {
+          "player": "Chris Jack",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 21.02,
+          "mpr": 1.83
+        },
+        "grzegorz_turbiarz|six_pack_attack|a2": {
+          "player": "Grzegorz Turbiarz",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 20.67,
+          "mpr": 2.31
+        },
+        "jose_nava|ya_pa_que|a2": {
+          "player": "Jose Nava",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 20.65,
+          "mpr": 2.9
+        },
+        "joel_arroyo|tons_r_us|a2": {
+          "player": "Joel Arroyo",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 20.65,
+          "mpr": 3
+        },
+        "jose_olvera|bullseye_bullies|a2": {
+          "player": "Jose Olvera",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 20.37,
+          "mpr": 1.83
+        },
+        "spencer_sodokoff|bullshigh|a2": {
+          "player": "Spencer Sodokoff",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 19.76,
+          "mpr": 2.18
+        },
+        "gabe_paulk|bullseye_bullies|a2": {
+          "player": "Gabe Paulk",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 19.33,
+          "mpr": 2.61
+        },
+        "lynden_lund|phoenix_arrows|a2": {
+          "player": "Lynden Lund",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 18.94,
+          "mpr": 2.02
+        },
+        "michael_dussault|tons_r_us|a2": {
+          "player": "Michael Dussault",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 18.89,
+          "mpr": 1.95
+        },
+        "kevin_dube|phoenix_arrows|a2": {
+          "player": "Kevin Dube",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 18.79,
+          "mpr": 2.07
+        },
+        "ismael_montes|ya_pa_que|a2": {
+          "player": "Ismael Montes",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 18.29,
+          "mpr": 1.62
+        },
+        "pedro_de_leon|ya_pa_que|a2": {
+          "player": "Pedro De Leon",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 17.14,
+          "mpr": 1.59
+        },
+        "marilen_lund|phoenix_arrows|a2": {
+          "player": "Marilen Lund",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 17.08,
+          "mpr": 2.23
+        },
+        "stefan_bersamin|tons_r_us|a2": {
+          "player": "Stefan Bersamin",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 16.54,
+          "mpr": 2.41
+        },
         "diego_ramirez|dart_and_disorderly|b1": {
           "player": "Diego Ramirez",
           "team": "Dart And Disorderly",
@@ -733,7 +1013,7 @@
           "mpr": 1.29
         }
       },
-      "savedAt": 1789751054006
+      "savedAt": 1789764071920
     }
   }
 }
