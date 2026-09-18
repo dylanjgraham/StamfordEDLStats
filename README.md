@@ -15,7 +15,7 @@ ToDo <br>
   mobile compatible (make whole left pane collapsible) <br>
 
   nice to haves <br>
-    store everyones weekly scores and show progress as a graph <br>
+    store everyones weekly scores and show progress as a graph ✔️ <br>
     
   
   
