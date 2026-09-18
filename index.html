@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Stamford EDL</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ag-grid/31.3.2/ag-grid-community.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -563,6 +563,136 @@
     }
     .admin-topbar-btn:hover { color: var(--accent); border-color: var(--accent); }
     .admin-topbar-btn.authed { border-color: rgba(74,232,122,0.5); color: var(--green); }
+
+    /* ── Mobile sidebar drawer ── */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 149;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .sidebar-backdrop.open { opacity: 1; }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px; height: 36px;
+      font-size: 18px;
+      cursor: pointer;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.15s;
+    }
+    .hamburger:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Responsive breakpoints ── */
+    @media (max-width: 768px) {
+
+      /* Topbar */
+      .topbar {
+        padding: 0 14px;
+        gap: 10px;
+        height: 54px;
+      }
+      .topbar-logo { font-size: 20px; }
+      .topbar-divider { display: none; }
+      .season-badge { display: none; }
+      #loadStatus { font-size: 0; gap: 0; margin-left: auto; } /* hide text, keep spinner */
+      #loadStatus .spinner { display: block; }
+
+      /* Show hamburger */
+      .hamburger { display: flex; }
+
+      /* Layout stacks: sidebar becomes an overlay drawer */
+      .layout {
+        height: calc(100dvh - 54px);
+        position: relative;
+      }
+
+      .sidebar-backdrop { display: block; pointer-events: none; }
+      .sidebar-backdrop.open { pointer-events: auto; }
+
+      .sidebar {
+        position: fixed;
+        top: 54px;
+        left: 0;
+        height: calc(100dvh - 54px);
+        width: 280px;
+        min-width: unset;
+        z-index: 150;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 4px 0 24px rgba(0,0,0,0.4);
+      }
+
+      .sidebar.open { transform: translateX(0); }
+
+      /* Main fills full width */
+      .main { width: 100%; }
+
+      /* Main header stacks */
+      .main-header {
+        padding: 12px 16px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .main-title { font-size: 18px; }
+      .main-subtitle { font-size: 11px; }
+
+      .header-controls { width: 100%; }
+      .search-input { width: 100%; flex: 1; }
+      .row-count { white-space: nowrap; }
+
+      /* Grid height: fill remaining space */
+      .grid-wrapper { flex: 1; min-height: 0; }
+
+      /* Improvement tooltip: pin to bottom on mobile */
+      .improvement-tooltip {
+        position: fixed;
+        bottom: 16px !important;
+        left: 50% !important;
+        top: auto !important;
+        transform: translateX(-50%);
+        text-align: center;
+      }
+
+      /* Chart modal: full screen on mobile */
+      .chart-modal {
+        width: 100vw;
+        max-height: 100dvh;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+      }
+
+      /* Admin modal: full width */
+      .admin-modal { width: 94vw; padding: 22px 20px 18px; }
+
+      /* DB status: hide text label on very small screens */
+      .db-status { font-size: 10px; padding: 3px 7px; }
+
+      /* Admin btn */
+      .admin-topbar-btn { font-size: 10px; padding: 4px 8px; }
+
+      /* Theme toggle */
+      .theme-toggle { width: 36px; height: 36px; }
+
+      /* Sidebar group items max-height: longer for mobile */
+      .sidebar-group-items.open { max-height: 800px; }
+    }
+
+    @media (max-width: 400px) {
+      .topbar-logo { font-size: 16px; }
+      #loadStatus { display: none; }
+      .db-status { display: none !important; }
+    }
   </style>
 </head>
 </head>
@@ -599,6 +729,7 @@
 </div>
 
 <div class="topbar">
+  <button class="hamburger" id="hamburger" aria-label="Open menu">☰</button>
   <div class="topbar-logo">🎯 STAMFORD DARTS<span> LEAGUE</span></div>
   <div class="topbar-divider"></div>
   <!--div class="season-badge" id="seasonBadge">Loading...</div-->
@@ -608,6 +739,7 @@
   <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">🌙</button>
 </div>
 
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 <div class="layout">
   <div class="sidebar" id="sidebar"></div>
   <div class="main" style="position:relative">
@@ -623,7 +755,7 @@
         <div class="main-subtitle" id="mainSubtitle">Use the sidebar to navigate</div>
       </div>
       <div class="header-controls">
-        <input class="search-input" type="text" id="searchInput" placeholder="Search..." />
+        <input class="search-input" type="text" id="searchInput" placeholder="Search Team or Player Name" />
         <div class="row-count">Rows: <strong id="rowCount">0</strong></div>
       </div>
     </div>
@@ -927,7 +1059,7 @@ function renderAdminModal(view) {
   if (view === 'login') {
     inner.innerHTML = `
       <div class="admin-modal-title">🔐 Admin Login</div>
-      <div class="admin-modal-desc">Enter your admin password and a GitHub PAT to save this week's stats for week to week comparison graphs.</div>
+      <div class="admin-modal-desc">Enter your admin password and a GitHub PAT to save this week's stats for week to week comparison.</div>
       <div class="admin-field">
         <label class="admin-label" for="adminPassword">Password</label>
         <input class="admin-input" id="adminPassword" type="password" placeholder="••••••••" autocomplete="current-password" />
@@ -1073,6 +1205,40 @@ document.addEventListener('keydown', e => {
   btn.addEventListener('click', () => {
     applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
   });
+})();
+
+// ── Mobile sidebar drawer ─────────────────────────────────────────────────────
+(function() {
+  const hamburger = document.getElementById('hamburger');
+  const sidebar   = document.getElementById('sidebar');
+  const backdrop  = document.getElementById('sidebarBackdrop');
+
+  function openSidebar() {
+    sidebar.classList.add('open');
+    backdrop.classList.add('open');
+    hamburger.textContent = '✕';
+    hamburger.setAttribute('aria-label', 'Close menu');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    backdrop.classList.remove('open');
+    hamburger.textContent = '☰';
+    hamburger.setAttribute('aria-label', 'Open menu');
+    document.body.style.overflow = '';
+  }
+
+  function toggleSidebar() {
+    sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+  }
+
+  hamburger.addEventListener('click', toggleSidebar);
+  backdrop.addEventListener('click', closeSidebar);
+
+  // Close drawer when a section is selected on mobile
+  const origLoad = window._origLoadSection || loadSection;
+  window.addEventListener('sectionLoaded', closeSidebar);
 })();
 
 // ============================================================
@@ -1572,6 +1738,8 @@ function loadSection(key) {
   gridApi.setGridOption('quickFilterText', '');
   document.getElementById('searchInput').value = '';
   updateRowCount();
+  // Close mobile sidebar drawer when a section is tapped
+  window.dispatchEvent(new Event('sectionLoaded'));
 }
 
 function updateRowCount() {
