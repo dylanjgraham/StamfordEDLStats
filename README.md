@@ -14,9 +14,9 @@ ToDo <br>
   fix buggy sorting visual that looks like it should be an arrow but is instead a box ✔️ <br>
   highlight highest out per division with a tooltip that explains the highlight ✔️ <br>
   mobile compatible (make whole left pane collapsible) ✔️ <br> 
-  win percentage should round to zero decimals in the standings page <br>
-  make the most improved tooltip slightly larger <br>
-  make the win and win percentage columns smaller. These are the only ones that seem to grow with screensize and they should get a max size at the expense of having empty space on the right side of our columns if the screen is too big. Also make the Loton column fit its header <br>
+  win percentage should round to zero decimals in the standings page ✔️ <br>
+  make the most improved tooltip slightly larger ✔️ <br>
+  make the win and win percentage columns smaller. These are the only ones that seem to grow with screensize and they should get a max size at the expense of having empty space on the right side of our columns if the screen is too big. Also make the Loton column fit its header ✔️ <br>
   
 
   nice to haves <br>
