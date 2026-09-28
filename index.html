@@ -358,12 +358,12 @@
       position: fixed; pointer-events: none;
       background: #1a2e1f; border: 1px solid var(--green);
       color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; padding: 8px 14px; z-index: 9999;
+      font-size: 14px; padding: 11px 18px; z-index: 9999;
       display: none; white-space: nowrap;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
-    .improvement-tooltip .tip-title { color: var(--green); font-weight: 700; font-size: 14px; letter-spacing: 0.05em; }
-    .improvement-tooltip .tip-row { color: var(--muted); font-size: 11px; margin-top: 3px; }
+    .improvement-tooltip .tip-title { color: var(--green); font-weight: 700; font-size: 16px; letter-spacing: 0.05em; }
+    .improvement-tooltip .tip-row { color: var(--muted); font-size: 13px; margin-top: 4px; }
     .improvement-tooltip .tip-row span { color: var(--text); }
 
     /* Collapsible sidebar groups */
@@ -907,15 +907,15 @@ async function openPlayerChart(rowData, statType) {
     chartInstance = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: points.map(p => `Wk ${p.week}`),
+        labels: [...points.map(p => `Wk ${p.week}`), ...Array.from({length:2}, (_,i) => `Wk ${points[points.length-1].week + i + 1}`)],
         datasets: [{
           label,
-          data: points.map(p => p.val),
+          data: [...points.map(p => p.val), null, null],
           borderColor: color,
           backgroundColor: color + '22',
           pointBackgroundColor: color,
           pointRadius: 5, pointHoverRadius: 7,
-          tension: 0.3, fill: true,
+          tension: 0.3, fill: true, spanGaps: false,
         }],
       },
       options: {
@@ -1535,7 +1535,7 @@ function getColumns(section) {
 
   const key = Object.keys(SECTIONS).find(k => SECTIONS[k] === section);
 
-  if (key === 'standings') {
+  if (key && key.endsWith('_standings')) {
     const playoffCutoff = section.data.length >= 8 ? 6 : 4;
     const maxW = Math.max(...section.data.map(r => r.wins || 0));
     return [
@@ -1543,16 +1543,14 @@ function getColumns(section) {
       { field: 'division', headerName: 'Div', width: 70, cellRenderer: p => `<span class="div-badge">${p.value}</span>` },
       { field: 'team', headerName: 'Team', flex: 2, minWidth: 120 },
       { field: 'weeks', headerName: 'Wks', width: 70 },
-      { field: 'wins', headerName: 'W', flex: 1, cellRenderer: p => {
-        const pct = maxW ? (p.value/maxW)*100 : 0;
-        return `<div class="bar-cell"><span style="min-width:30px">${p.value}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`;
-      }},
+      { field: 'wins', headerName: 'W', width: 65 },
       { field: 'losses', headerName: 'L', width: 65 },
-      { field: 'winPct', headerName: 'W%', width: 80, valueFormatter: p => p.value != null ? (p.value*100).toFixed(1)+'%' : '' },
+      { field: 'winPct', headerName: 'W%', width: 65, maxWidth: 65, cellRenderer: p => p.value != null ? Math.round(p.value*100)+'%' : '' },
     ];
   }
 
   if (key === 'last_matches') {
+
     return [
       { field: 'team', headerName: 'Team', flex: 1.5, minWidth: 120 },
       { field: 'against', headerName: 'Against', flex: 1.5, minWidth: 120 },
@@ -1611,12 +1609,12 @@ function getColumns(section) {
         return `<div class="bar-cell"><span class="ppd-cell" style="min-width:40px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:var(--accent)"></div></div></div>`;
       }},
       { field: 'games', headerName: 'Gms', width: 65 },
-      { field: 'wins', headerName: 'W', width: 60 },
-      { field: 'winPct', headerName: 'W%', width: 75, valueFormatter: p => p.value != null ? (p.value*100).toFixed(0)+'%' : '' },
+      { field: 'wins', headerName: 'W', width: 50, maxWidth: 50 },
+      { field: 'winPct', headerName: 'W%', width: 65, maxWidth: 65, cellRenderer: p => p.value != null ? Math.round(p.value*100)+'%' : '' },
       { field: 'hats', headerName: 'Hats', width: 65 },
       { field: 'ton80', headerName: '180s', width: 65 },
       { field: 'hiTon', headerName: 'HiTon', width: 70 },
-      { field: 'loTon', headerName: 'LoTon', width: 70 },
+      { field: 'loTon', headerName: 'LoTon', width: 80, minWidth: 80 },
       { field: 'hiOut', headerName: 'HiOut', width: 75 },
     ];
   }
@@ -1631,8 +1629,8 @@ function getColumns(section) {
         return `<div class="bar-cell"><span class="mpr-cell" style="min-width:36px">${p.value?.toFixed(2)}</span><div class="bar-wrap"><div class="bar-fill" style="width:${pct}%;background:#7ad4e8"></div></div></div>`;
       }},
       { field: 'games', headerName: 'Gms', width: 65 },
-      { field: 'wins', headerName: 'W', width: 60 },
-      { field: 'winPct', headerName: 'W%', width: 75, valueFormatter: p => p.value != null ? (p.value*100).toFixed(0)+'%' : '' },
+      { field: 'wins', headerName: 'W', width: 50, maxWidth: 50 },
+      { field: 'winPct', headerName: 'W%', width: 65, maxWidth: 65, cellRenderer: p => p.value != null ? Math.round(p.value*100)+'%' : '' },
       { field: 'assists', headerName: 'Ast', width: 65 },
       { field: 'hats', headerName: 'Hats', width: 65 },
       { field: 'mr6', headerName: '6MR', width: 60 },
