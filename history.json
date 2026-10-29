@@ -1,5 +1,5 @@
 {
-  "lastWeek": 5,
+  "lastWeek": 7,
   "weeks": {
     "1": {
       "week": 1,
@@ -5666,6 +5666,1830 @@
         }
       },
       "savedAt": 1792418312249
+    },
+    "7": {
+      "week": 7,
+      "players": {
+        "junior_ahat|big_slick|a1": {
+          "player": "Junior Ahat",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 32.65,
+          "mpr": 3.68
+        },
+        "mike_bowers|burns_bastards|a1": {
+          "player": "Mike Bowers",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 30,
+          "mpr": 3.42
+        },
+        "aidan_houghton|burns_bastards|a1": {
+          "player": "Aidan Houghton",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 29.92,
+          "mpr": 2.96
+        },
+        "dennis_hartlima|dart_knights_return|a1": {
+          "player": "Dennis HartLima",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 29.66,
+          "mpr": 2.84
+        },
+        "tj_herlihy|chillcrest|a1": {
+          "player": "TJ Herlihy",
+          "team": "Chillcrest",
+          "div": "A1",
+          "ppd": 29.63,
+          "mpr": 2.82
+        },
+        "kevin_field|burns_bastards|a1": {
+          "player": "Kevin Field",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 29.09,
+          "mpr": 2.92
+        },
+        "rob_dwinall|big_slick|a1": {
+          "player": "Rob Dwinall",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 28.87,
+          "mpr": 2.65
+        },
+        "steve_mahalic|big_slick|a1": {
+          "player": "Steve Mahalic",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 28.71,
+          "mpr": 3.16
+        },
+        "matt_bova|dart_knights_return|a1": {
+          "player": "Matt Bova",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 28.05,
+          "mpr": 2.75
+        },
+        "joey_kryszczynski|big_last|a1": {
+          "player": "Joey Kryszczynski",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 27.92,
+          "mpr": 3.01
+        },
+        "cris_antipuesto|big_slick|a1": {
+          "player": "Cris Antipuesto",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 27.91,
+          "mpr": 3.52
+        },
+        "jp_reyes|dart_knights_return|a1": {
+          "player": "JP Reyes",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 27.73,
+          "mpr": 3.26
+        },
+        "george_jagodzinski|big_last|a1": {
+          "player": "George Jagodzinski",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 26.94,
+          "mpr": 3.09
+        },
+        "paddy_mcardle|burns_bastards|a1": {
+          "player": "Paddy McArdle",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 26.35,
+          "mpr": 2.68
+        },
+        "sam_hyland|chillcrest|a1": {
+          "player": "Sam Hyland",
+          "team": "Chillcrest",
+          "div": "A1",
+          "ppd": 26.1,
+          "mpr": 2.92
+        },
+        "joe_maillard|big_last|a1": {
+          "player": "Joe Maillard",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 26,
+          "mpr": 3
+        },
+        "ben_green|big_last|a1": {
+          "player": "Ben Green",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 25.97,
+          "mpr": 3.15
+        },
+        "dan_vergez|dart_knights_return|a1": {
+          "player": "Dan Vergez",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 25.76,
+          "mpr": 2.69
+        },
+        "ben_jachimczyk|dart_knights_return|a1": {
+          "player": "Ben Jachimczyk",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 25.25,
+          "mpr": 2.76
+        },
+        "mark_novak|big_slick|a1": {
+          "player": "Mark Novak",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 25.14,
+          "mpr": 3.96
+        },
+        "kevin_sanchez|big_slick|a1": {
+          "player": "Kevin Sanchez",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 25.05,
+          "mpr": 2.33
+        },
+        "shawn_neilsen|big_last|a1": {
+          "player": "Shawn Neilsen",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 24.95,
+          "mpr": 2.67
+        },
+        "kyle_allen|big_last|a1": {
+          "player": "Kyle Allen",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 24.87,
+          "mpr": 2
+        },
+        "mike_kerner|big_last|a1": {
+          "player": "Mike Kerner",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 24.45,
+          "mpr": 3.36
+        },
+        "dallas_turzer|tons_of_bulls|a1": {
+          "player": "Dallas Turzer",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 24.32,
+          "mpr": 2.39
+        },
+        "mike_pribanic|tons_of_bulls|a1": {
+          "player": "Mike Pribanic",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 24.31,
+          "mpr": 2.52
+        },
+        "greg_theile|burns_bastards|a1": {
+          "player": "Greg Theile",
+          "team": "Burns Bastards",
+          "div": "A1",
+          "ppd": 24.28,
+          "mpr": 2.59
+        },
+        "nelson_caitan|big_slick|a1": {
+          "player": "Nelson Caitan",
+          "team": "Big Slick",
+          "div": "A1",
+          "ppd": 23.97,
+          "mpr": 2.39
+        },
+        "dustin_schrader|chillcrest|a1": {
+          "player": "Dustin Schrader",
+          "team": "Chillcrest",
+          "div": "A1",
+          "ppd": 23.68,
+          "mpr": 2.68
+        },
+        "oscar_molina|tons_of_bulls|a1": {
+          "player": "Oscar Molina",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 22.74,
+          "mpr": 2.41
+        },
+        "connor_flemming|chillcrest|a1": {
+          "player": "Connor Flemming",
+          "team": "Chillcrest",
+          "div": "A1",
+          "ppd": 22.29,
+          "mpr": 2.36
+        },
+        "tyler_carlo|dart_knights_return|a1": {
+          "player": "Tyler Carlo",
+          "team": "Dart Knights Return",
+          "div": "A1",
+          "ppd": 21.55,
+          "mpr": 2.58
+        },
+        "pete_dempsey|chillcrest|a1": {
+          "player": "Pete Dempsey",
+          "team": "Chillcrest",
+          "div": "A1",
+          "ppd": 21.54,
+          "mpr": 2.07
+        },
+        "jerome_ramos|tons_of_bulls|a1": {
+          "player": "Jerome Ramos",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 21.5,
+          "mpr": 2.45
+        },
+        "dwayne_morgan|big_last|a1": {
+          "player": "Dwayne Morgan",
+          "team": "Big Last",
+          "div": "A1",
+          "ppd": 21,
+          "mpr": 1.74
+        },
+        "g|_substitutes_|a1": {
+          "player": "G",
+          "team": "{Substitutes}",
+          "div": "A1",
+          "ppd": 17.84,
+          "mpr": 2.34
+        },
+        "ken_turzer|tons_of_bulls|a1": {
+          "player": "Ken Turzer",
+          "team": "Tons Of Bulls",
+          "div": "A1",
+          "ppd": 17.77,
+          "mpr": 1.58
+        },
+        "gerson_anariba|ya_pa_que|a2": {
+          "player": "Gerson Anariba",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 25.18,
+          "mpr": 3.3
+        },
+        "jack_drowne|bullshigh|a2": {
+          "player": "Jack Drowne",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 24.96,
+          "mpr": 2.81
+        },
+        "jorge_guzman|phoenix_arrows|a2": {
+          "player": "Jorge Guzman",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 24.79,
+          "mpr": 2.95
+        },
+        "joey_iglesias|smoking_darts|a2": {
+          "player": "Joey Iglesias",
+          "team": "Smoking Darts",
+          "div": "A2",
+          "ppd": 24.62,
+          "mpr": 2.9
+        },
+        "will_iglesias|smoking_darts|a2": {
+          "player": "Will Iglesias",
+          "team": "Smoking Darts",
+          "div": "A2",
+          "ppd": 24.6,
+          "mpr": 2.98
+        },
+        "justin_dagostino|bullshigh|a2": {
+          "player": "Justin Dagostino",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 24.58,
+          "mpr": 2.81
+        },
+        "joel_arroyo|tons_r_us|a2": {
+          "player": "Joel Arroyo",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 24.43,
+          "mpr": 2.55
+        },
+        "tyler_tuccinardi|bullshigh|a2": {
+          "player": "Tyler Tuccinardi",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 24.03,
+          "mpr": 2.73
+        },
+        "daniel_dominguez|six_pack_attack|a2": {
+          "player": "Daniel Dominguez",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 23.74,
+          "mpr": 2.65
+        },
+        "erwin_ramirez|bullseye_bullies|a2": {
+          "player": "Erwin Ramirez",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 23.52,
+          "mpr": 2.45
+        },
+        "spencer_sodokoff|bullshigh|a2": {
+          "player": "Spencer Sodokoff",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 22.83,
+          "mpr": 1.7
+        },
+        "mike_myers|six_pack_attack|a2": {
+          "player": "Mike Myers",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 22.5,
+          "mpr": 2.2
+        },
+        "hector_batista|tons_r_us|a2": {
+          "player": "Hector Batista",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 22.42,
+          "mpr": 2.49
+        },
+        "armando_pineda|six_pack_attack|a2": {
+          "player": "Armando Pineda",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 22.42,
+          "mpr": 2.6
+        },
+        "jose_olvera|bullseye_bullies|a2": {
+          "player": "Jose Olvera",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 22.3,
+          "mpr": 2.02
+        },
+        "trevor_mcgee|ya_pa_que|a2": {
+          "player": "Trevor McGee",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 22.1,
+          "mpr": 2.19
+        },
+        "grzegorz_turbiarz|six_pack_attack|a2": {
+          "player": "Grzegorz Turbiarz",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 21.94,
+          "mpr": 2.38
+        },
+        "billy_murphy|bullshigh|a2": {
+          "player": "Billy Murphy",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 21.93,
+          "mpr": 2.11
+        },
+        "matt_t|_substitutes_|a2": {
+          "player": "MATT T",
+          "team": "{Substitutes}",
+          "div": "A2",
+          "ppd": 21.64
+        },
+        "jose_nava|ya_pa_que|a2": {
+          "player": "Jose Nava",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 21.34,
+          "mpr": 2.73
+        },
+        "chris_jack|phoenix_arrows|a2": {
+          "player": "Chris Jack",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 21.33,
+          "mpr": 2.07
+        },
+        "tony_cummings|bullseye_bullies|a2": {
+          "player": "Tony Cummings",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 21.33,
+          "mpr": 2.28
+        },
+        "anthony_pensiero|smoking_darts|a2": {
+          "player": "Anthony Pensiero",
+          "team": "Smoking Darts",
+          "div": "A2",
+          "ppd": 21.27,
+          "mpr": 1.81
+        },
+        "gabe_paulk|bullseye_bullies|a2": {
+          "player": "Gabe Paulk",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 20.83,
+          "mpr": 2.37
+        },
+        "ray_decamillo|phoenix_arrows|a2": {
+          "player": "Ray Decamillo",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 20.54,
+          "mpr": 2.26
+        },
+        "mario_degani|ya_pa_que|a2": {
+          "player": "Mario Degani",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 20.41,
+          "mpr": 2.05
+        },
+        "tyler_phillips|six_pack_attack|a2": {
+          "player": "Tyler Phillips",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 20.4,
+          "mpr": 2.04
+        },
+        "kevin_dube|phoenix_arrows|a2": {
+          "player": "Kevin Dube",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 20.27,
+          "mpr": 2.05
+        },
+        "andrew_tuccinardi|bullshigh|a2": {
+          "player": "Andrew Tuccinardi",
+          "team": "BullsHigh",
+          "div": "A2",
+          "ppd": 20.15,
+          "mpr": 2.21
+        },
+        "joey_dandrea|smoking_darts|a2": {
+          "player": "Joey DAndrea",
+          "team": "Smoking Darts",
+          "div": "A2",
+          "ppd": 20.08,
+          "mpr": 1.94
+        },
+        "junior_vazquez|tons_r_us|a2": {
+          "player": "Junior Vazquez",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 20.06,
+          "mpr": 2.47
+        },
+        "pedro_de_leon|ya_pa_que|a2": {
+          "player": "Pedro De Leon",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 19.89,
+          "mpr": 1.85
+        },
+        "michael_dussault|tons_r_us|a2": {
+          "player": "Michael Dussault",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 19.47,
+          "mpr": 2.54
+        },
+        "sean_james|tons_r_us|a2": {
+          "player": "Sean James",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 19.33,
+          "mpr": 1.72
+        },
+        "jp_rangel|tons_r_us|a2": {
+          "player": "JP Rangel",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 19.1,
+          "mpr": 2.17
+        },
+        "jeton_buqani|bullseye_bullies|a2": {
+          "player": "Jeton Buqani",
+          "team": "Bullseye Bullies",
+          "div": "A2",
+          "ppd": 18.78,
+          "mpr": 2.09
+        },
+        "marilen_lund|phoenix_arrows|a2": {
+          "player": "Marilen Lund",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 18.73,
+          "mpr": 1.51
+        },
+        "ismael_montes|ya_pa_que|a2": {
+          "player": "Ismael Montes",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 18.29,
+          "mpr": 1.62
+        },
+        "stefan_bersamin|tons_r_us|a2": {
+          "player": "Stefan Bersamin",
+          "team": "Tons R Us",
+          "div": "A2",
+          "ppd": 17.95,
+          "mpr": 2.04
+        },
+        "lynden_lund|phoenix_arrows|a2": {
+          "player": "Lynden Lund",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 17.55,
+          "mpr": 1.82
+        },
+        "claudia_moses|smoking_darts|a2": {
+          "player": "Claudia Moses",
+          "team": "Smoking Darts",
+          "div": "A2",
+          "ppd": 17.46,
+          "mpr": 1.82
+        },
+        "ryan_iise|phoenix_arrows|a2": {
+          "player": "Ryan Iise",
+          "team": "Phoenix Arrows",
+          "div": "A2",
+          "ppd": 17.02,
+          "mpr": 1.67
+        },
+        "gio_gonzales|six_pack_attack|a2": {
+          "player": "Gio Gonzales",
+          "team": "Six Pack Attack",
+          "div": "A2",
+          "ppd": 15.92,
+          "mpr": 1.71
+        },
+        "matt_oneil|ya_pa_que|a2": {
+          "player": "Matt Oneil",
+          "team": "Ya Pa Que",
+          "div": "A2",
+          "ppd": 14.89,
+          "mpr": 2.47
+        },
+        "jeremy_linton|cardinals_ii|b1": {
+          "player": "Jeremy Linton",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 25.2,
+          "mpr": 2.71
+        },
+        "max_atkinson|cardinals_ii|b1": {
+          "player": "Max Atkinson",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 24.83,
+          "mpr": 2.71
+        },
+        "rich_roser|madd_rich_darting|b1": {
+          "player": "Rich Roser",
+          "team": "Madd Rich Darting",
+          "div": "B1",
+          "ppd": 23.46,
+          "mpr": 2.52
+        },
+        "diego_ramirez|dart_and_disorderly|b1": {
+          "player": "Diego Ramirez",
+          "team": "Dart And Disorderly",
+          "div": "B1",
+          "ppd": 23.27,
+          "mpr": 2.26
+        },
+        "joey_siclari|bull_bandits|b1": {
+          "player": "Joey Siclari",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 22.39,
+          "mpr": 2.58
+        },
+        "stefan_jones|bull_bandits|b1": {
+          "player": "Stefan Jones",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 22.28,
+          "mpr": 2.16
+        },
+        "mike_dececco|dart_and_disorderly|b1": {
+          "player": "Mike DeCecco",
+          "team": "Dart And Disorderly",
+          "div": "B1",
+          "ppd": 22.05,
+          "mpr": 2.14
+        },
+        "kevin_ciaccio|cardinals_ii|b1": {
+          "player": "Kevin Ciaccio",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 21.59,
+          "mpr": 2.33
+        },
+        "santiago_collazo|large_darts|b1": {
+          "player": "Santiago Collazo",
+          "team": "LARGE Darts",
+          "div": "B1",
+          "ppd": 21.38,
+          "mpr": 2.25
+        },
+        "eugene_brady|sac_attack|b1": {
+          "player": "Eugene Brady",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 21.29,
+          "mpr": 2.04
+        },
+        "joe_boscia|dart_and_disorderly|b1": {
+          "player": "Joe Boscia",
+          "team": "Dart And Disorderly",
+          "div": "B1",
+          "ppd": 21.02,
+          "mpr": 2.1
+        },
+        "donie_keogh|cardinals_ii|b1": {
+          "player": "Donie Keogh",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 20.97,
+          "mpr": 1.99
+        },
+        "jake_atkinson|cardinals_ii|b1": {
+          "player": "Jake Atkinson",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 20.97,
+          "mpr": 2.3
+        },
+        "richie_ayala|large_darts|b1": {
+          "player": "Richie Ayala",
+          "team": "LARGE Darts",
+          "div": "B1",
+          "ppd": 20.78,
+          "mpr": 1.97
+        },
+        "jesse_solano|large_darts|b1": {
+          "player": "Jesse Solano",
+          "team": "LARGE Darts",
+          "div": "B1",
+          "ppd": 20.77,
+          "mpr": 2.38
+        },
+        "jp_ezzo|sac_attack|b1": {
+          "player": "JP Ezzo",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 20.66,
+          "mpr": 2.05
+        },
+        "nick_augustus|sac_attack|b1": {
+          "player": "Nick Augustus",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 20.46,
+          "mpr": 2.4
+        },
+        "alec_rizzo|madd_rich_darting|b1": {
+          "player": "Alec Rizzo",
+          "team": "Madd Rich Darting",
+          "div": "B1",
+          "ppd": 20.42,
+          "mpr": 2.13
+        },
+        "joe_laws|sac_attack|b1": {
+          "player": "Joe Laws",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 20.41,
+          "mpr": 2.14
+        },
+        "chordale_booker|large_darts|b1": {
+          "player": "Chordale Booker",
+          "team": "LARGE Darts",
+          "div": "B1",
+          "ppd": 20.2,
+          "mpr": 2.19
+        },
+        "dave_oshaughnessy|dart_vaders|b1": {
+          "player": "Dave Oshaughnessy",
+          "team": "Dart Vaders",
+          "div": "B1",
+          "ppd": 20.18,
+          "mpr": 1.91
+        },
+        "eric_hartstein|19_bull|b1": {
+          "player": "Eric Hartstein",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 20.18,
+          "mpr": 2.38
+        },
+        "ryan_fienstein|dart_vaders|b1": {
+          "player": "Ryan Fienstein",
+          "team": "Dart Vaders",
+          "div": "B1",
+          "ppd": 20.08,
+          "mpr": 1.87
+        },
+        "jimmy_colella|madd_rich_darting|b1": {
+          "player": "Jimmy Colella",
+          "team": "Madd Rich Darting",
+          "div": "B1",
+          "ppd": 19.72,
+          "mpr": 1.86
+        },
+        "danny_christy|19_bull|b1": {
+          "player": "Danny Christy",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 19.67,
+          "mpr": 2.06
+        },
+        "colin_igoe|madd_rich_darting|b1": {
+          "player": "Colin Igoe",
+          "team": "Madd Rich Darting",
+          "div": "B1",
+          "ppd": 19.67,
+          "mpr": 1.94
+        },
+        "david_wilder|19_bull|b1": {
+          "player": "David Wilder",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 19.66,
+          "mpr": 1.83
+        },
+        "spencer_cooney|19_bull|b1": {
+          "player": "Spencer Cooney",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 19.61,
+          "mpr": 1.78
+        },
+        "alex_herrera|cardinals_ii|b1": {
+          "player": "Alex Herrera",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 19.59,
+          "mpr": 2.12
+        },
+        "rich_berberian|19_bull|b1": {
+          "player": "Rich Berberian",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 19.3,
+          "mpr": 1.74
+        },
+        "mike_gleason|bull_bandits|b1": {
+          "player": "Mike Gleason",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 19.13,
+          "mpr": 2.02
+        },
+        "erwin_martinez|bull_bandits|b1": {
+          "player": "Erwin Martinez",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 19.11,
+          "mpr": 2.02
+        },
+        "julio_cabrera|19_bull|b1": {
+          "player": "Julio Cabrera",
+          "team": "19 Bull",
+          "div": "B1",
+          "ppd": 18.59,
+          "mpr": 1.85
+        },
+        "chris_tishelman|dart_vaders|b1": {
+          "player": "Chris Tishelman",
+          "team": "Dart Vaders",
+          "div": "B1",
+          "ppd": 18.2,
+          "mpr": 1.78
+        },
+        "joe_decarlo|sac_attack|b1": {
+          "player": "Joe DeCarlo",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 18.02,
+          "mpr": 1.68
+        },
+        "rez|large_darts|b1": {
+          "player": "REZ",
+          "team": "LARGE Darts",
+          "div": "B1",
+          "ppd": 18.01,
+          "mpr": 1.25
+        },
+        "will_mcadoo|dart_and_disorderly|b1": {
+          "player": "Will McAdoo",
+          "team": "Dart And Disorderly",
+          "div": "B1",
+          "ppd": 17.91,
+          "mpr": 1.75
+        },
+        "jake_kelly|madd_rich_darting|b1": {
+          "player": "Jake Kelly",
+          "team": "Madd Rich Darting",
+          "div": "B1",
+          "ppd": 17.89,
+          "mpr": 1.59
+        },
+        "ivan_flores|bull_bandits|b1": {
+          "player": "Ivan Flores",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 17.76,
+          "mpr": 1.34
+        },
+        "jeremy_tishelman|dart_vaders|b1": {
+          "player": "Jeremy Tishelman",
+          "team": "Dart Vaders",
+          "div": "B1",
+          "ppd": 17.54,
+          "mpr": 1.9
+        },
+        "kenny_segura|bull_bandits|b1": {
+          "player": "Kenny Segura",
+          "team": "Bull Bandits",
+          "div": "B1",
+          "ppd": 17.5,
+          "mpr": 2.08
+        },
+        "joey_hoyt|sac_attack|b1": {
+          "player": "Joey Hoyt",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 17.33,
+          "mpr": 2.34
+        },
+        "danny_paez|dart_vaders|b1": {
+          "player": "Danny Paez",
+          "team": "Dart Vaders",
+          "div": "B1",
+          "ppd": 17.05,
+          "mpr": 1.9
+        },
+        "joe_linton|cardinals_ii|b1": {
+          "player": "Joe Linton",
+          "team": "Cardinals II",
+          "div": "B1",
+          "ppd": 16.77,
+          "mpr": 1.57
+        },
+        "tommy_curtin|sac_attack|b1": {
+          "player": "Tommy Curtin",
+          "team": "SAC Attack",
+          "div": "B1",
+          "ppd": 16.3,
+          "mpr": 0.84
+        },
+        "steven_oneill|dart_and_disorderly|b1": {
+          "player": "Steven ONeill",
+          "team": "Dart And Disorderly",
+          "div": "B1",
+          "ppd": 16.02,
+          "mpr": 1.91
+        },
+        "pat_donahue|bourbon_bastards|b2": {
+          "player": "Pat Donahue",
+          "team": "Bourbon Bastards",
+          "div": "B2",
+          "ppd": 26.15,
+          "mpr": 2.32
+        },
+        "joe_santasiero|the_brickleberries|b2": {
+          "player": "Joe Santasiero",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 24.42,
+          "mpr": 2.51
+        },
+        "tim_flay|ts_dart_hustlers|b2": {
+          "player": "Tim Flay",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 23.82,
+          "mpr": 2.39
+        },
+        "donnacha_odwyer|the_brickleberries|b2": {
+          "player": "Donnacha Odwyer",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 23.02,
+          "mpr": 2.45
+        },
+        "eddie_gibson|darty_boys|b2": {
+          "player": "Eddie Gibson",
+          "team": "Darty Boys",
+          "div": "B2",
+          "ppd": 22.76,
+          "mpr": 2.21
+        },
+        "everton_deleon|703_snipers|b2": {
+          "player": "Everton Deleon",
+          "team": "703 Snipers",
+          "div": "B2",
+          "ppd": 22.18,
+          "mpr": 2.1
+        },
+        "matt_mailhot|darty_boys|b2": {
+          "player": "Matt Mailhot",
+          "team": "Darty Boys",
+          "div": "B2",
+          "ppd": 21.92,
+          "mpr": 2.39
+        },
+        "aaron_ducksworth|the_brickleberries|b2": {
+          "player": "Aaron Ducksworth",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 21.64,
+          "mpr": 1.92
+        },
+        "george_pourakis|dart_bags|b2": {
+          "player": "George Pourakis",
+          "team": "Dart Bags",
+          "div": "B2",
+          "ppd": 21.33,
+          "mpr": 2.27
+        },
+        "alan_munson|bourbon_bastards|b2": {
+          "player": "Alan Munson",
+          "team": "Bourbon Bastards",
+          "div": "B2",
+          "ppd": 21.25,
+          "mpr": 1.9
+        },
+        "g_smith|ts_dart_hustlers|b2": {
+          "player": "G Smith",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 20.87,
+          "mpr": 1.78
+        },
+        "matt_savatsky|bourbon_bastards|b2": {
+          "player": "Matt Savatsky",
+          "team": "Bourbon Bastards",
+          "div": "B2",
+          "ppd": 20.53,
+          "mpr": 2.11
+        },
+        "tino_giresi|ts_dart_hustlers|b2": {
+          "player": "Tino Giresi",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 20.31,
+          "mpr": 2.33
+        },
+        "jay_lockwood|darty_boys|b2": {
+          "player": "Jay Lockwood",
+          "team": "Darty Boys",
+          "div": "B2",
+          "ppd": 20.25,
+          "mpr": 1.91
+        },
+        "doss|the_brickleberries|b2": {
+          "player": "DOSS",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 20.23,
+          "mpr": 2.5
+        },
+        "neal_rich|703_snipers|b2": {
+          "player": "Neal Rich",
+          "team": "703 Snipers",
+          "div": "B2",
+          "ppd": 20.22,
+          "mpr": 1.82
+        },
+        "sean_casey|dart_bags|b2": {
+          "player": "Sean Casey",
+          "team": "Dart Bags",
+          "div": "B2",
+          "ppd": 20.07,
+          "mpr": 1.81
+        },
+        "tony_dipreta|bobbys_bullys|b2": {
+          "player": "Tony Dipreta",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 20.04,
+          "mpr": 1.83
+        },
+        "aric_niemeria|bourbon_bastards|b2": {
+          "player": "Aric Niemeria",
+          "team": "Bourbon Bastards",
+          "div": "B2",
+          "ppd": 19.9,
+          "mpr": 1.86
+        },
+        "sean_mailhot|darty_boys|b2": {
+          "player": "Sean Mailhot",
+          "team": "Darty Boys",
+          "div": "B2",
+          "ppd": 19.81,
+          "mpr": 2.13
+        },
+        "chris_vasely|dart_bags|b2": {
+          "player": "Chris Vasely",
+          "team": "Dart Bags",
+          "div": "B2",
+          "ppd": 19.8,
+          "mpr": 2.21
+        },
+        "greg_ruff|703_snipers|b2": {
+          "player": "Greg Ruff",
+          "team": "703 Snipers",
+          "div": "B2",
+          "ppd": 19.49,
+          "mpr": 1.84
+        },
+        "anthony_rychlik|ts_dart_hustlers|b2": {
+          "player": "Anthony Rychlik",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 19.36,
+          "mpr": 1.05
+        },
+        "chris_jimenez|bourbon_bastards|b2": {
+          "player": "Chris Jimenez",
+          "team": "Bourbon Bastards",
+          "div": "B2",
+          "ppd": 19.24,
+          "mpr": 2.11
+        },
+        "eric_drummond|703_snipers|b2": {
+          "player": "Eric Drummond",
+          "team": "703 Snipers",
+          "div": "B2",
+          "ppd": 19.11,
+          "mpr": 1.96
+        },
+        "melvin_calhoun|chester|b2": {
+          "player": "Melvin Calhoun",
+          "team": "Chester",
+          "div": "B2",
+          "ppd": 18.87,
+          "mpr": 1.78
+        },
+        "ricky_vines|ts_dart_hustlers|b2": {
+          "player": "Ricky Vines",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 18.8,
+          "mpr": 1.75
+        },
+        "alex_johnson|dart_bags|b2": {
+          "player": "Alex Johnson",
+          "team": "Dart Bags",
+          "div": "B2",
+          "ppd": 18.57,
+          "mpr": 2.09
+        },
+        "terrell_calhoun|chester|b2": {
+          "player": "Terrell Calhoun",
+          "team": "Chester",
+          "div": "B2",
+          "ppd": 18.54,
+          "mpr": 1.97
+        },
+        "jon_michael|bobbys_bullys|b2": {
+          "player": "Jon Michael",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 18.51,
+          "mpr": 1.93
+        },
+        "kevin_fuller|bobbys_bullys|b2": {
+          "player": "Kevin Fuller",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 18.44,
+          "mpr": 1.84
+        },
+        "peyton_knauf|bobbys_bullys|b2": {
+          "player": "Peyton Knauf",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 18.29,
+          "mpr": 1.86
+        },
+        "tavon_maple|ts_dart_hustlers|b2": {
+          "player": "Tavon Maple",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 18.05,
+          "mpr": 1.79
+        },
+        "colin_joffrion|the_brickleberries|b2": {
+          "player": "Colin Joffrion",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 17.99,
+          "mpr": 1.73
+        },
+        "sean_warde|ts_dart_hustlers|b2": {
+          "player": "Sean Warde",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 17.73,
+          "mpr": 1.97
+        },
+        "matt_pagels|the_brickleberries|b2": {
+          "player": "Matt Pagels",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 17.55,
+          "mpr": 2.31
+        },
+        "christine_nealy|the_brickleberries|b2": {
+          "player": "Christine Nealy",
+          "team": "The Brickleberries",
+          "div": "B2",
+          "ppd": 17.52,
+          "mpr": 1.78
+        },
+        "brick|ts_dart_hustlers|b2": {
+          "player": "BRICK",
+          "team": "Ts Dart Hustlers",
+          "div": "B2",
+          "ppd": 17.47,
+          "mpr": 1.62
+        },
+        "dan_barragan|chester|b2": {
+          "player": "Dan Barragan",
+          "team": "Chester",
+          "div": "B2",
+          "ppd": 17.47,
+          "mpr": 1.67
+        },
+        "bobby_cribbin|bobbys_bullys|b2": {
+          "player": "Bobby Cribbin",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 17.17,
+          "mpr": 1.85
+        },
+        "rayshawn_gibson|chester|b2": {
+          "player": "Rayshawn Gibson",
+          "team": "Chester",
+          "div": "B2",
+          "ppd": 16.92,
+          "mpr": 1.53
+        },
+        "angelic_garcia|703_snipers|b2": {
+          "player": "Angelic Garcia",
+          "team": "703 Snipers",
+          "div": "B2",
+          "ppd": 16.54,
+          "mpr": 1.65
+        },
+        "mike_tamburri|darty_boys|b2": {
+          "player": "Mike Tamburri",
+          "team": "Darty Boys",
+          "div": "B2",
+          "ppd": 16.09,
+          "mpr": 1.63
+        },
+        "kaleesha_askew|chester|b2": {
+          "player": "Kaleesha Askew",
+          "team": "Chester",
+          "div": "B2",
+          "ppd": 15.83,
+          "mpr": 1.4
+        },
+        "daniel_bernard|bobbys_bullys|b2": {
+          "player": "Daniel Bernard",
+          "team": "Bobbys Bullys",
+          "div": "B2",
+          "ppd": 14.84,
+          "mpr": 1.72
+        },
+        "earl_kendrick|cardinals_saints|b3": {
+          "player": "Earl Kendrick",
+          "team": "Cardinals Saints",
+          "div": "B3",
+          "ppd": 21.29,
+          "mpr": 2.04
+        },
+        "jay_fowler|the_hitmen|b3": {
+          "player": "Jay Fowler",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 20.12,
+          "mpr": 2.26
+        },
+        "pete_winslow|deez_nutz|b3": {
+          "player": "Pete Winslow",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 20.04,
+          "mpr": 1.88
+        },
+        "timmy_argo|farting_and_darting|b3": {
+          "player": "Timmy Argo",
+          "team": "Farting And Darting",
+          "div": "B3",
+          "ppd": 19.99,
+          "mpr": 1.61
+        },
+        "tomor_dishnica|the_hitmen|b3": {
+          "player": "Tomor Dishnica",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 19.86,
+          "mpr": 1.22
+        },
+        "stavros_koutroubis|the_hitmen|b3": {
+          "player": "Stavros Koutroubis",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 18.53,
+          "mpr": 1.66
+        },
+        "liam_davies|the_hitmen|b3": {
+          "player": "Liam Davies",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 18.08,
+          "mpr": 1.75
+        },
+        "jp_morales|the_hitmen|b3": {
+          "player": "JP Morales",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 18.07,
+          "mpr": 1.53
+        },
+        "trent_holsborg|the_dart_side|b3": {
+          "player": "Trent Holsborg",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 18.06,
+          "mpr": 1.8
+        },
+        "dylan_graham|the_dart_side|b3": {
+          "player": "Dylan Graham",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 17.99,
+          "mpr": 2.04
+        },
+        "robert_markman|farting_and_darting|b3": {
+          "player": "Robert Markman",
+          "team": "Farting And Darting",
+          "div": "B3",
+          "ppd": 17.87,
+          "mpr": 1.97
+        },
+        "landyn_traffas|dartless|b3": {
+          "player": "Landyn Traffas",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 17.53,
+          "mpr": 1.92
+        },
+        "len_cearley|deez_nutz|b3": {
+          "player": "Len Cearley",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 17.44,
+          "mpr": 1.87
+        },
+        "szymon_skiendziel|cardinals_saints|b3": {
+          "player": "Szymon Skiendziel",
+          "team": "Cardinals Saints",
+          "div": "B3",
+          "ppd": 17.37,
+          "mpr": 1.61
+        },
+        "matanel_cohen_weinberg|the_dart_side|b3": {
+          "player": "Matanel Cohen Weinberg",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 17.32,
+          "mpr": 1.69
+        },
+        "ryan_czelada|the_dart_side|b3": {
+          "player": "Ryan Czelada",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 17.25,
+          "mpr": 1.32
+        },
+        "shawn_reilly|dartless|b3": {
+          "player": "Shawn Reilly",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 17.21,
+          "mpr": 1.56
+        },
+        "trisa_atkinson|cardinals_saints|b3": {
+          "player": "Trisa Atkinson",
+          "team": "Cardinals Saints",
+          "div": "B3",
+          "ppd": 17.04,
+          "mpr": 1.66
+        },
+        "milo_judge|farting_and_darting|b3": {
+          "player": "Milo Judge",
+          "team": "Farting And Darting",
+          "div": "B3",
+          "ppd": 16.98,
+          "mpr": 1.82
+        },
+        "jaxx_uchiha|the_hitmen|b3": {
+          "player": "Jaxx Uchiha",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 16.9,
+          "mpr": 1.72
+        },
+        "gabe_girotto|dartless|b3": {
+          "player": "Gabe Girotto",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 16.87,
+          "mpr": 1.55
+        },
+        "justin_gaccione|farting_and_darting|b3": {
+          "player": "Justin Gaccione",
+          "team": "Farting And Darting",
+          "div": "B3",
+          "ppd": 16.85,
+          "mpr": 1.37
+        },
+        "ruben_molina|dartless|b3": {
+          "player": "Ruben Molina",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 16.66,
+          "mpr": 1.69
+        },
+        "sean_nemazie|fire_and_ice|b3": {
+          "player": "Sean Nemazie",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 16.53,
+          "mpr": 1.38
+        },
+        "kadeem_sweeney|dartless|b3": {
+          "player": "Kadeem Sweeney",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 16.5,
+          "mpr": 1.86
+        },
+        "tracy_atkinson|cardinals_saints|b3": {
+          "player": "Tracy Atkinson",
+          "team": "Cardinals Saints",
+          "div": "B3",
+          "ppd": 16.25,
+          "mpr": 1.78
+        },
+        "mario_pavon|dartless|b3": {
+          "player": "Mario Pavon",
+          "team": "Dartless",
+          "div": "B3",
+          "ppd": 16.16,
+          "mpr": 1.54
+        },
+        "tristan_byrnes|the_dart_side|b3": {
+          "player": "Tristan Byrnes",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 16.08,
+          "mpr": 2.04
+        },
+        "tina_spell|cardinals_saints|b3": {
+          "player": "Tina Spell",
+          "team": "Cardinals Saints",
+          "div": "B3",
+          "ppd": 16.02,
+          "mpr": 1.49
+        },
+        "alexa_holsborg|the_dart_side|b3": {
+          "player": "Alexa Holsborg",
+          "team": "The Dart Side",
+          "div": "B3",
+          "ppd": 15.77,
+          "mpr": 1.14
+        },
+        "gary_joss|deez_nutz|b3": {
+          "player": "Gary Joss",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 15.73,
+          "mpr": 1.19
+        },
+        "rachel_winslow|deez_nutz|b3": {
+          "player": "Rachel Winslow",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 15.65,
+          "mpr": 1.59
+        },
+        "ashley_sousa|the_hitmen|b3": {
+          "player": "Ashley Sousa",
+          "team": "The Hitmen",
+          "div": "B3",
+          "ppd": 15.48,
+          "mpr": 1.64
+        },
+        "delta_benoit|deez_nutz|b3": {
+          "player": "Delta Benoit",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 15.38,
+          "mpr": 1.3
+        },
+        "scotty_atkinson|farting_and_darting|b3": {
+          "player": "Scotty Atkinson",
+          "team": "Farting And Darting",
+          "div": "B3",
+          "ppd": 14.83,
+          "mpr": 2.74
+        },
+        "amy_zemper|fire_and_ice|b3": {
+          "player": "Amy Zemper",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 14.79,
+          "mpr": 1.37
+        },
+        "heather_clegg|deez_nutz|b3": {
+          "player": "Heather Clegg",
+          "team": "Deez Nutz",
+          "div": "B3",
+          "ppd": 14.66,
+          "mpr": 1.05
+        },
+        "arlisha_britt|fire_and_ice|b3": {
+          "player": "Arlisha Britt",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 14.62,
+          "mpr": 1.73
+        },
+        "denise_villanueva|fire_and_ice|b3": {
+          "player": "Denise Villanueva",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 14.41,
+          "mpr": 1.36
+        },
+        "karen_lindstrom|fire_and_ice|b3": {
+          "player": "Karen Lindstrom",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 13.87,
+          "mpr": 1.26
+        },
+        "laura_phelps|fire_and_ice|b3": {
+          "player": "Laura Phelps",
+          "team": "Fire And Ice",
+          "div": "B3",
+          "ppd": 12.03,
+          "mpr": 1.37
+        },
+        "kyle_ferguson|just_the_tips|c1": {
+          "player": "Kyle Ferguson",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 20.64,
+          "mpr": 2.24
+        },
+        "simone_brown|harry_os|c1": {
+          "player": "Simone Brown",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 20.58,
+          "mpr": 1.64
+        },
+        "rob_zimmerman|its_not_dart_serious|c1": {
+          "player": "Rob Zimmerman",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 20.2,
+          "mpr": 2.27
+        },
+        "kyle_esposito|harry_os|c1": {
+          "player": "Kyle Esposito",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 19.56,
+          "mpr": 1.46
+        },
+        "matt_mezias|just_the_tips|c1": {
+          "player": "Matt Mezias",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 18.89,
+          "mpr": 1.97
+        },
+        "ant_liveisone|harry_os|c1": {
+          "player": "Ant Liveisone",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 18.57,
+          "mpr": 2.05
+        },
+        "franklyn_grant|harry_os|c1": {
+          "player": "Franklyn Grant",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 18.56,
+          "mpr": 1.88
+        },
+        "stephen_parker|its_not_dart_serious|c1": {
+          "player": "Stephen Parker",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 18.52,
+          "mpr": 1.66
+        },
+        "laura_carroll|burns_bitches|c1": {
+          "player": "Laura Carroll",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 17.92,
+          "mpr": 1.53
+        },
+        "donna_moses|burns_bitches|c1": {
+          "player": "Donna Moses",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 17.01,
+          "mpr": 1.52
+        },
+        "rob_buzzeo|harry_os|c1": {
+          "player": "Rob Buzzeo",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 16.7,
+          "mpr": 1.57
+        },
+        "jodi_manjuck|burns_bitches|c1": {
+          "player": "Jodi Manjuck",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 16.49,
+          "mpr": 1.53
+        },
+        "kaley_walsh|sac_of_chicks|c1": {
+          "player": "Kaley Walsh",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 16.19,
+          "mpr": 1.69
+        },
+        "eileen_ornousky|sac_of_chicks|c1": {
+          "player": "Eileen Ornousky",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 16.15,
+          "mpr": 1.68
+        },
+        "matthew_vera|point_taken|c1": {
+          "player": "Matthew Vera",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 15.94,
+          "mpr": 1.32
+        },
+        "anna_commentucci|just_the_tips|c1": {
+          "player": "Anna Commentucci",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 15.9,
+          "mpr": 1.32
+        },
+        "jroc|darts|c1": {
+          "player": "JROC",
+          "team": "DarTs",
+          "div": "C1",
+          "ppd": 15.9,
+          "mpr": 1.74
+        },
+        "buster_byrnes|burns_bitches|c1": {
+          "player": "Buster Byrnes",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 15.89,
+          "mpr": 1.68
+        },
+        "mike_slocum|darts|c1": {
+          "player": "Mike Slocum",
+          "team": "DarTs",
+          "div": "C1",
+          "ppd": 15.89,
+          "mpr": 1.56
+        },
+        "adam_weinstein|just_the_tips|c1": {
+          "player": "Adam Weinstein",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 15.67,
+          "mpr": 1.54
+        },
+        "lisa_gaudet|sac_of_chicks|c1": {
+          "player": "Lisa Gaudet",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 15.63,
+          "mpr": 2.08
+        },
+        "christena_odwyer|burns_bitches|c1": {
+          "player": "Christena Odwyer",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 15.61,
+          "mpr": 1.45
+        },
+        "billy_jordan|harry_os|c1": {
+          "player": "Billy Jordan",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 15.59,
+          "mpr": 0.97
+        },
+        "will_krinsky|point_taken|c1": {
+          "player": "Will Krinsky",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 15.57,
+          "mpr": 1.28
+        },
+        "carlos_bustamante|its_not_dart_serious|c1": {
+          "player": "Carlos Bustamante",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 15.56,
+          "mpr": 1.46
+        },
+        "ryan_salerno|harry_os|c1": {
+          "player": "Ryan Salerno",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 15.55,
+          "mpr": 1.19
+        },
+        "tiernan_deacy|its_not_dart_serious|c1": {
+          "player": "Tiernan Deacy",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 15.44,
+          "mpr": 1.44
+        },
+        "kenley_bosquet|point_taken|c1": {
+          "player": "Kenley Bosquet",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 15.35,
+          "mpr": 0.98
+        },
+        "gabriella_gillman|sac_of_chicks|c1": {
+          "player": "Gabriella Gillman",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 15.32,
+          "mpr": 1.39
+        },
+        "abi_kurien|darts|c1": {
+          "player": "Abi Kurien",
+          "team": "DarTs",
+          "div": "C1",
+          "ppd": 15.31,
+          "mpr": 1.29
+        },
+        "simone_decicco|just_the_tips|c1": {
+          "player": "Simone Decicco",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 15.13,
+          "mpr": 1.46
+        },
+        "mike_stasiuk|point_taken|c1": {
+          "player": "Mike Stasiuk",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 15.06,
+          "mpr": 1.03
+        },
+        "don_juan|darts|c1": {
+          "player": "Don Juan",
+          "team": "DarTs",
+          "div": "C1",
+          "ppd": 14.76,
+          "mpr": 1.19
+        },
+        "conor_brady|just_the_tips|c1": {
+          "player": "Conor Brady",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 14.73,
+          "mpr": 1.08
+        },
+        "jean_rinchere|darts|c1": {
+          "player": "Jean Rinchere",
+          "team": "DarTs",
+          "div": "C1",
+          "ppd": 14.56,
+          "mpr": 1.12
+        },
+        "carly_gillman|sac_of_chicks|c1": {
+          "player": "Carly Gillman",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 14.51,
+          "mpr": 1.19
+        },
+        "christine_molina|point_taken|c1": {
+          "player": "Christine Molina",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 14.47,
+          "mpr": 1.19
+        },
+        "stacey_palumbo|sac_of_chicks|c1": {
+          "player": "Stacey Palumbo",
+          "team": "SAC Of Chicks",
+          "div": "C1",
+          "ppd": 14.44,
+          "mpr": 1.48
+        },
+        "matthew_wallace|just_the_tips|c1": {
+          "player": "Matthew Wallace",
+          "team": "Just The Tips",
+          "div": "C1",
+          "ppd": 14.37,
+          "mpr": 1.46
+        },
+        "fran_rubina_chuckas|its_not_dart_serious|c1": {
+          "player": "Fran Rubina Chuckas",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 14.33,
+          "mpr": 1.38
+        },
+        "melissa_casale|burns_bitches|c1": {
+          "player": "Melissa Casale",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 13.87,
+          "mpr": 1.31
+        },
+        "sonia_blade|harry_os|c1": {
+          "player": "Sonia Blade",
+          "team": "Harry Os",
+          "div": "C1",
+          "ppd": 13.84,
+          "mpr": 1.7
+        },
+        "roberto_blasio|its_not_dart_serious|c1": {
+          "player": "Roberto Blasio",
+          "team": "Its Not Dart Serious",
+          "div": "C1",
+          "ppd": 13.62,
+          "mpr": 1.32
+        },
+        "mary_ryan|burns_bitches|c1": {
+          "player": "Mary Ryan",
+          "team": "Burns Bitches",
+          "div": "C1",
+          "ppd": 13.14,
+          "mpr": 0.72
+        },
+        "ortillia_matute|point_taken|c1": {
+          "player": "Ortillia Matute",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 13.02,
+          "mpr": 0.72
+        },
+        "billy_lynn|point_taken|c1": {
+          "player": "Billy Lynn",
+          "team": "Point Taken",
+          "div": "C1",
+          "ppd": 10.98,
+          "mpr": 1.22
+        },
+        "evan_dotson|_substitutes_|a2": {
+          "player": "EVAN DOTSON",
+          "team": "{Substitutes}",
+          "div": "A2",
+          "mpr": 2.14
+        }
+      },
+      "savedAt": 1793298210263
     }
   }
 }
